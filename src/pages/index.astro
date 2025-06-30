@@ -1,29 +1,79 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { getWeatherForBagorKulon, type WeatherData, type Prakiraan } from '../services/bmkg';
+
+const dataCuaca: WeatherData | null = await getWeatherForBagorKulon();
+
+// Helper untuk format waktu dan tanggal yang aman
+const formatDate = (datetimeStr: string | undefined, options: Intl.DateTimeFormatOptions) => {
+    if (!datetimeStr) return "Invalid Date";
+    const date = new Date(datetimeStr.replace(' ', 'T'));
+    if (isNaN(date.getTime())) return "Invalid Date";
+    return date.toLocaleDateString('id-ID', { ...options, timeZone: 'Asia/Jakarta' });
+};
+
+const formatTime = (datetimeStr: string | undefined) => {
+    if (!datetimeStr) return "Invalid Time";
+    const date = new Date(datetimeStr.replace(' ', 'T'));
+    if (isNaN(date.getTime())) return "Invalid Time";
+    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' }) + ' WIB';
+};
+
+const getDayName = (datetimeStr: string | undefined) => {
+    return formatDate(datetimeStr, { weekday: 'long' });
+};
+
+const getFullDate = (datetimeStr: string | undefined) => {
+    return formatDate(datetimeStr, { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+const cuacaSaatIni: Prakiraan | null = (dataCuaca && dataCuaca.prakiraan.length > 0) ? dataCuaca.prakiraan[0] : null;
 ---
-<MainLayout title="Beranda">
-    <section class="bg-primary-50 py-16 sm:py-20 lg:py-24 rounded-2xl shadow-sm overflow-hidden text-center">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary-800 mb-4 leading-tight">Pantau Cuaca, Rencanakan Panen</h1>
-            <p class="text-base sm:text-lg text-neutral-700 mb-10 max-w-2xl mx-auto">Dapatkan prakiraan cuaca akurat dan panduan pertanian adaptif untuk meningkatkan hasil dan efisiensi pertanian Anda.</p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-				<a href="/prakiraan" class="w-full sm:w-auto bg-white text-primary-600 border-2 border-primary-500 font-bold py-3 px-8 rounded-full hover:bg-primary-50 transition-all duration-300 transform hover:scale-105">
-					Lihat Prakiraan
-				</a>
-				<a href="/panduan-petani" class="w-full sm:w-auto bg-white text-primary-600 border-2 border-primary-500 font-bold py-3 px-8 rounded-full hover:bg-primary-50 transition-all duration-300 transform hover:scale-105">
-					Baca Panduan
-				</a>
-			</div>
+<MainLayout title="Cuaca Desa Bagor Kulon">
+    {dataCuaca && cuacaSaatIni ? (
+        <>
+            <section class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-800">{dataCuaca.lokasi.desa}</h1>
+                <h2 class="text-lg sm:text-xl font-semibold text-neutral-600">{dataCuaca.lokasi.kecamatan}, {dataCuaca.lokasi.kotkab}</h2>
+                <p class="text-sm text-neutral-500">Pembaruan Terakhir: {getFullDate(cuacaSaatIni.local_datetime)}</p>
+            </section>
+
+            <section class="bg-white p-6 rounded-2xl shadow-lg max-w-2xl mx-auto mb-12">
+                <div class="text-center">
+                    <p class="font-semibold text-neutral-500">{getDayName(cuacaSaatIni.local_datetime)}, <span class="text-primary-600 font-bold">{formatTime(cuacaSaatIni.local_datetime)}</span></p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 my-3">
+                        <img src={cuacaSaatIni.image} alt={cuacaSaatIni.weather_desc} width="100" height="100" class="drop-shadow-lg"/>
+                        <div class="text-center sm:text-left">
+                            <p class="text-6xl font-bold text-neutral-800">{cuacaSaatIni.t}°C</p>
+                            <p class="text-xl font-semibold text-neutral-700">{cuacaSaatIni.weather_desc}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-neutral-600 mt-4 bg-neutral-50 p-4 rounded-lg">
+                        <div class="text-center"><p class="text-sm">Kelembapan</p><p class="font-bold text-lg">{cuacaSaatIni.hu}%</p></div>
+                        <div class="text-center"><p class="text-sm">Angin</p><p class="font-bold text-lg">{cuacaSaatIni.ws} km/j</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-xl font-bold text-center text-neutral-700 mb-4">Prakiraan Cuaca 3 Hari ke Depan</h3>
+                <div class="space-y-4">
+                    {dataCuaca.prakiraan.map((p, index) => (
+                        <div class:list={["grid grid-cols-3 sm:grid-cols-5 items-center gap-2 p-3 rounded-lg transition-all", index === 0 ? "bg-primary-100 ring-2 ring-primary-300" : "bg-white hover:bg-neutral-50" ]}>
+                            <div class="col-span-1 text-left"><p class="font-bold text-neutral-800">{formatTime(p.local_datetime)}</p><p class="text-xs text-neutral-500 hidden sm:block">{getDayName(p.local_datetime)}</p></div>
+                            <div class="col-span-1 flex items-center justify-center gap-2"><img src={p.image} alt={p.weather_desc} width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10"/><span class="font-semibold text-lg text-neutral-800 hidden sm:inline">{p.t}°C</span></div>
+                            <div class="col-span-1 text-center sm:text-left text-neutral-600 font-medium hidden sm:block">{p.weather_desc}</div>
+                            <div class="col-span-1 text-center sm:text-left text-neutral-600 hidden sm:block">{p.ws} km/j</div>
+                            <div class="col-span-1 text-right text-neutral-600 sm:hidden"><p class="font-semibold">{p.t}°C</p><p class="text-xs">{p.ws} km/j</p></div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        </>
+    ) : (
+        <div class="bg-secondary-100 border-l-4 border-secondary-500 text-secondary-800 p-4 rounded-md text-center" role="alert">
+            <p class="font-bold">Gagal Memuat Data</p>
+            <p>Tidak dapat mengambil data prakiraan cuaca dari server BMKG. Mohon periksa koneksi internet Anda atau coba lagi nanti.</p>
         </div>
-    </section>
-    <section class="py-16 sm:py-20 lg:py-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold text-neutral-800 mb-12">Mengapa Memilih SIPETA?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-primary-400 text-left"><h3 class="text-xl font-semibold text-primary-700 mb-2">Akurat & Terpercaya</h3><p class="text-neutral-600">Data cuaca langsung dari BMKG memastikan informasi yang Anda terima adalah yang paling akurat.</p></div>
-                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-secondary-400 text-left"><h3 class="text-xl font-semibold text-secondary-700 mb-2">Panduan Adaptif</h3><p class="text-neutral-600">Dapatkan rekomendasi pertanian yang disesuaikan dengan kondisi cuaca terkini.</p></div>
-                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-accent-400 text-left"><h3 class="text-xl font-semibold text-accent-700 mb-2">Mudah Digunakan</h3><p class="text-neutral-600">Tampilan yang sederhana dan intuitif memudahkan petani dari berbagai kalangan.</p></div>
-            </div>
-        </div>
-    </section>
+    )}
 </MainLayout>

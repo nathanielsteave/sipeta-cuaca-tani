@@ -1,16 +1,16 @@
 ---
 const navItems = [
-    { href: '/', label: 'Beranda' },
-    { href: '/prakiraan', label: 'Prakiraan' },
-    { href: '/panduan-petani', label: 'Panduan' },
-    { href: '/tentang', label: 'Tentang' },
-    { href: '/kontak', label: 'Kontak' },
+    { href: '/', label: 'Cuaca Hari Ini' },
+    { href: '/panduan-petani', label: 'Panduan Tani' },
+    { href: '/tentang', label: 'Tentang Proyek' },
 ];
 const currentPath = Astro.url.pathname;
 ---
 <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-        <a href="/" class="text-2xl font-extrabold text-primary-600">SIPETA</a>
+        <a href="/" class="text-2xl font-extrabold text-primary-600">
+            SIPETA BAGOR KULON
+        </a>
         <div class="hidden md:flex items-center space-x-6">
             {navItems.map(item => (
                 <a href={item.href} class:list={["font-semibold text-neutral-600 hover:text-primary-600 transition-colors duration-300", { "text-primary-600 border-b-2 border-primary-600": item.href === currentPath }]}>
@@ -33,6 +33,7 @@ const currentPath = Astro.url.pathname;
     </div>
 </header>
 <script>
+    // Script menu mobile tidak berubah, bisa dibiarkan seperti sebelumnya
     document.addEventListener('DOMContentLoaded', () => {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
