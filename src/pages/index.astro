@@ -1,16 +1,25 @@
 ---
-
+import MainLayout from '../layouts/MainLayout.astro';
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Beranda">
+    <section class="bg-primary-50 py-16 sm:py-20 lg:py-24 rounded-2xl shadow-sm overflow-hidden text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary-800 mb-4 leading-tight">Pantau Cuaca, Rencanakan Panen</h1>
+            <p class="text-base sm:text-lg text-neutral-700 mb-10 max-w-2xl mx-auto">Dapatkan prakiraan cuaca akurat dan panduan pertanian adaptif untuk meningkatkan hasil dan efisiensi pertanian Anda.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/prakiraan" class="w-full sm:w-auto bg-primary-500 text-white font-bold py-3 px-8 rounded-full hover:bg-primary-600 transition-all duration-300 transform hover:scale-105 shadow-lg">Lihat Prakiraan</a>
+                <a href="/panduan-petani" class="w-full sm:w-auto bg-white text-primary-600 border-2 border-primary-500 font-bold py-3 px-8 rounded-full hover:bg-primary-50 transition-all duration-300 transform hover:scale-105">Baca Panduan</a>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 sm:py-20 lg:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-neutral-800 mb-12">Mengapa Memilih SIPETA?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-primary-400 text-left"><h3 class="text-xl font-semibold text-primary-700 mb-2">Akurat & Terpercaya</h3><p class="text-neutral-600">Data cuaca langsung dari BMKG memastikan informasi yang Anda terima adalah yang paling akurat.</p></div>
+                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-secondary-400 text-left"><h3 class="text-xl font-semibold text-secondary-700 mb-2">Panduan Adaptif</h3><p class="text-neutral-600">Dapatkan rekomendasi pertanian yang disesuaikan dengan kondisi cuaca terkini.</p></div>
+                <div class="bg-white rounded-lg shadow p-8 hover:shadow-xl transition-shadow duration-300 border-b-4 border-accent-400 text-left"><h3 class="text-xl font-semibold text-accent-700 mb-2">Mudah Digunakan</h3><p class="text-neutral-600">Tampilan yang sederhana dan intuitif memudahkan petani dari berbagai kalangan.</p></div>
+            </div>
+        </div>
+    </section>
+</MainLayout>

@@ -1,0 +1,38 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getWeatherData, type WeatherArea } from '../services/bmkg';
+import WeatherCard from '../components/WeatherCard.astro';
+import ExportButtons from '../components/interactive/ExportButtons.jsx';
+
+const weatherData: WeatherArea[] | null = await getWeatherData("JawaBarat");
+
+const excelExportData = weatherData?.map(area => ({
+    'Kota/Kabupaten': area.name,
+    'Suhu (°C)': area.temperature?.[0]?.value ? Math.round(parseFloat(area.temperature[0].value)) : 'N/A',
+    'Kondisi Cuaca': area.weather?.[0]?.name || 'N/A',
+    'Kode Cuaca': area.weather?.[0]?.code || 'N/A',
+    'Latitude': area.latitude,
+    'Longitude': area.longitude,
+})) ?? [];
+---
+<MainLayout title="Prakiraan Cuaca">
+    <section>
+        <div class="mb-8 text-center sm:text-left">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-700 mb-2">Prakiraan Cuaca Pertanian</h1>
+            <p class="text-neutral-600">Data cuaca terkini dari BMKG untuk wilayah Jawa Barat.</p>
+        </div>
+        <div class="flex justify-center sm:justify-end mb-8">
+            <ExportButtons client:load dataToExport={excelExportData} elementIdToCapture="weather-data-container"/>
+        </div>
+        <div id="weather-data-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {weatherData ? (
+                weatherData.map(area => <WeatherCard data={area} />)
+            ) : (
+                <div class="col-span-full bg-secondary-100 border-l-4 border-secondary-500 text-secondary-800 p-4 rounded-md" role="alert">
+                    <p class="font-bold">Informasi</p>
+                    <p>Data prakiraan cuaca saat ini tidak tersedia. Mungkin sedang ada gangguan pada server BMKG atau koneksi Anda. Silakan coba lagi nanti.</p>
+                </div>
+            )}
+        </div>
+    </section>
+</MainLayout>

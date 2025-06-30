@@ -1,0 +1,35 @@
+---
+import type { WeatherArea } from '../services/bmkg';
+
+interface Props {
+    data: WeatherArea;
+}
+const { data } = Astro.props;
+const currentForecast = data.weather?.[0];
+const currentTemp = data.temperature?.[0];
+
+let borderColorClass = 'border-primary-500';
+if (currentForecast) {
+    const code = parseInt(currentForecast.code);
+    if (code >= 60 && code <= 97) { borderColorClass = 'border-accent-500'; }
+    else if (code >= 5 && code <= 45) { borderColorClass = 'border-neutral-400'; }
+}
+---
+<div class={`bg-white rounded-lg shadow p-5 border-l-4 ${borderColorClass} transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col justify-between`}>
+    <div>
+        <h3 class="text-lg font-bold text-neutral-800 truncate" title={data.name}>{data.name}</h3>
+        <p class="text-xs text-neutral-500 mb-4">Lat: {data.latitude}, Lon: {data.longitude}</p>
+    </div>
+    <div class="flex items-center justify-between">
+        <span class="text-4xl sm:text-5xl font-extrabold text-neutral-800">
+            {currentTemp ? Math.round(parseFloat(currentTemp.value)) : '-'}
+            <span class="text-2xl align-top text-neutral-500">°C</span>
+        </span>
+        <div class="text-right flex-shrink-0 ml-2">
+            <p class="font-semibold text-base sm:text-lg text-neutral-700">{currentForecast?.name || 'N/A'}</p>
+            <p class="text-xs text-neutral-500 bg-neutral-100 px-2 py-1 rounded-full inline-block mt-1">
+                Kode: {currentForecast?.code || 'N/A'}
+            </p>
+        </div>
+    </div>
+</div>

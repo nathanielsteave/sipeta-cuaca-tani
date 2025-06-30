@@ -1,0 +1,30 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+const guides = [
+    { title: "Panduan Musim Kemarau & Cuaca Panas", condition: "Suhu Tinggi, Curah Hujan Rendah", recommendations: ["Lakukan penyiraman pada pagi atau sore hari untuk mengurangi penguapan.", "Gunakan mulsa (jerami, sekam) untuk menjaga kelembapan tanah.", "Pilih varietas tanaman yang tahan kekeringan.", "Periksa sistem irigasi secara berkala untuk memastikan tidak ada kebocoran."]},
+    { title: "Panduan Musim Hujan & Cuaca Ekstrem", condition: "Curah Hujan Tinggi, Angin Kencang", recommendations: ["Pastikan sistem drainase (saluran air) di lahan berfungsi dengan baik untuk menghindari genangan.", "Buat penopang untuk tanaman yang rentan rebah karena angin dan hujan lebat.", "Waspadai serangan hama dan penyakit yang meningkat pada kondisi lembab.", "Tunda pemupukan jika diperkirakan akan turun hujan sangat lebat untuk mencegah pupuk tercuci."]},
+    { title: "Manajemen Umum", condition: "Kondisi Normal", recommendations: ["Lakukan rotasi tanaman untuk menjaga kesuburan tanah dan memutus siklus hama.", "Gunakan pupuk berimbang sesuai kebutuhan tanaman dan kondisi tanah.", "Lakukan pemantauan rutin terhadap kondisi tanaman, hama, dan penyakit."]}
+];
+---
+<MainLayout title="Panduan Adaptif Petani">
+    <div class="mb-8 text-center sm:text-left">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-700 mb-2">Panduan Adaptif Petani</h1>
+        <p class="text-neutral-600">Rekomendasi praktik pertanian berdasarkan kondisi cuaca.</p>
+    </div>
+    <div class="space-y-8">
+        {guides.map((guide, index) => {
+            const colors = ['border-primary-500', 'border-accent-500', 'border-secondary-500'];
+            const borderColor = colors[index % colors.length];
+            return (
+            <div class={`bg-white rounded-lg shadow-md overflow-hidden border-l-4 ${borderColor}`}>
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-neutral-800">{guide.title}</h2>
+                    <p class="text-sm font-semibold text-neutral-500 mt-1">{guide.condition}</p>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-neutral-700">
+                        {guide.recommendations.map(rec => (<li>{rec}</li>))}
+                    </ul>
+                </div>
+            </div>
+        )})}
+    </div>
+</MainLayout>
