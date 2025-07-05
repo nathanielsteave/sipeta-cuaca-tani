@@ -4,23 +4,33 @@ import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 
 export default function ExportButtons({ dataToExport, elementIdToCapture }) {
+  // Fungsi untuk ekspor ke PDF
   const exportToPDF = () => {
+    // Cari elemen HTML dengan id yang diberikan (misal: "weather-dashboard")
     const input = document.getElementById(elementIdToCapture);
     if (!input) { alert("Elemen untuk di-export tidak ditemukan!"); return; }
+    
+    // Gunakan html2canvas untuk mengubah elemen HTML menjadi gambar
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      // Tambahkan gambar ke PDF dan simpan
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save('prakiraan-cuaca.pdf');
     });
   };
 
+  // Fungsi untuk ekspor ke Excel
   const exportToExcel = () => {
+    // Ubah data JSON (array of objects) menjadi worksheet Excel
     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Prakiraan');
+    
+    // Tulis dan simpan file Excel
     XLSX.writeFile(workbook, 'prakiraan-cuaca.xlsx');
   };
 

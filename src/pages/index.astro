@@ -1,79 +1,89 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import { getWeatherForBagorKulon, type WeatherData, type Prakiraan } from '../services/bmkg';
+import Layout from '../layouts/Layout.astro';
+import CurrentWeather from '../components/weather/CurrentWeather.jsx';
+import InfoCard from '../components/weather/InfoCard.jsx';
+import ExportButtons from '../components/interactive/ExportButtons.jsx';
+import PanduanPetani from '../components/weather/PanduanPetani.jsx';
+import HourlyForecast from '../components/weather/HourlyForecast.jsx';
+import DailyForecast from '../components/weather/DailyForecast.jsx';
+import { getWeatherForBagorKulon, type WeatherData } from '../services/bmkg.ts';
 
-const dataCuaca: WeatherData | null = await getWeatherForBagorKulon();
+const weatherData: WeatherData | null = await getWeatherForBagorKulon();
+const current = weatherData?.prakiraan[0];
 
-// Helper untuk format waktu dan tanggal yang aman
-const formatDate = (datetimeStr: string | undefined, options: Intl.DateTimeFormatOptions) => {
-    if (!datetimeStr) return "Invalid Date";
-    const date = new Date(datetimeStr.replace(' ', 'T'));
-    if (isNaN(date.getTime())) return "Invalid Date";
-    return date.toLocaleDateString('id-ID', { ...options, timeZone: 'Asia/Jakarta' });
-};
-
-const formatTime = (datetimeStr: string | undefined) => {
-    if (!datetimeStr) return "Invalid Time";
-    const date = new Date(datetimeStr.replace(' ', 'T'));
-    if (isNaN(date.getTime())) return "Invalid Time";
-    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' }) + ' WIB';
-};
-
-const getDayName = (datetimeStr: string | undefined) => {
-    return formatDate(datetimeStr, { weekday: 'long' });
-};
-
-const getFullDate = (datetimeStr: string | undefined) => {
-    return formatDate(datetimeStr, { day: 'numeric', month: 'long', year: 'numeric' });
-};
-
-const cuacaSaatIni: Prakiraan | null = (dataCuaca && dataCuaca.prakiraan.length > 0) ? dataCuaca.prakiraan[0] : null;
+const exportData = weatherData?.prakiraan.map(p => ({
+  "Waktu Lokal": p.local_datetime,
+  "Suhu (°C)": p.t,
+  "Kelembapan (%)": p.hu,
+  "Deskripsi Cuaca": p.weather_desc,
+  "Kecepatan Angin (km/jam)": p.ws,
+  "Arah Angin": p.wd
+}));
 ---
-<MainLayout title="Cuaca Desa Bagor Kulon">
-    {dataCuaca && cuacaSaatIni ? (
-        <>
-            <section class="text-center mb-8">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-800">{dataCuaca.lokasi.desa}</h1>
-                <h2 class="text-lg sm:text-xl font-semibold text-neutral-600">{dataCuaca.lokasi.kecamatan}, {dataCuaca.lokasi.kotkab}</h2>
-                <p class="text-sm text-neutral-500">Pembaruan Terakhir: {getFullDate(cuacaSaatIni.local_datetime)}</p>
-            </section>
 
-            <section class="bg-white p-6 rounded-2xl shadow-lg max-w-2xl mx-auto mb-12">
-                <div class="text-center">
-                    <p class="font-semibold text-neutral-500">{getDayName(cuacaSaatIni.local_datetime)}, <span class="text-primary-600 font-bold">{formatTime(cuacaSaatIni.local_datetime)}</span></p>
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 my-3">
-                        <img src={cuacaSaatIni.image} alt={cuacaSaatIni.weather_desc} width="100" height="100" class="drop-shadow-lg"/>
-                        <div class="text-center sm:text-left">
-                            <p class="text-6xl font-bold text-neutral-800">{cuacaSaatIni.t}°C</p>
-                            <p class="text-xl font-semibold text-neutral-700">{cuacaSaatIni.weather_desc}</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 text-neutral-600 mt-4 bg-neutral-50 p-4 rounded-lg">
-                        <div class="text-center"><p class="text-sm">Kelembapan</p><p class="font-bold text-lg">{cuacaSaatIni.hu}%</p></div>
-                        <div class="text-center"><p class="text-sm">Angin</p><p class="font-bold text-lg">{cuacaSaatIni.ws} km/j</p></div>
-                    </div>
-                </div>
-            </section>
+<Layout title="Sipeta - Dashboard Cuaca Pertanian">
+  <div id="weather-dashboard" class="max-w-6xl mx-auto p-4 sm:p-6 space-y-6">
+    
+    <header class="fade-in">
+      <h1 class="text-3xl font-extrabold text-neutral-800 dark:text-white">
+        {weatherData ? `Cuaca ${weatherData.lokasi.desa}` : 'Dashboard Cuaca'}
+      </h1>
+      <p class="text-neutral-700 dark:text-neutral-300">
+          Informasi cuaca terkini untuk membantu aktivitas pertanian Anda.
+      </p>
+    </header>
 
-            <section>
-                <h3 class="text-xl font-bold text-center text-neutral-700 mb-4">Prakiraan Cuaca 3 Hari ke Depan</h3>
-                <div class="space-y-4">
-                    {dataCuaca.prakiraan.map((p, index) => (
-                        <div class:list={["grid grid-cols-3 sm:grid-cols-5 items-center gap-2 p-3 rounded-lg transition-all", index === 0 ? "bg-primary-100 ring-2 ring-primary-300" : "bg-white hover:bg-neutral-50" ]}>
-                            <div class="col-span-1 text-left"><p class="font-bold text-neutral-800">{formatTime(p.local_datetime)}</p><p class="text-xs text-neutral-500 hidden sm:block">{getDayName(p.local_datetime)}</p></div>
-                            <div class="col-span-1 flex items-center justify-center gap-2"><img src={p.image} alt={p.weather_desc} width="40" height="40" class="w-8 h-8 sm:w-10 sm:h-10"/><span class="font-semibold text-lg text-neutral-800 hidden sm:inline">{p.t}°C</span></div>
-                            <div class="col-span-1 text-center sm:text-left text-neutral-600 font-medium hidden sm:block">{p.weather_desc}</div>
-                            <div class="col-span-1 text-center sm:text-left text-neutral-600 hidden sm:block">{p.ws} km/j</div>
-                            <div class="col-span-1 text-right text-neutral-600 sm:hidden"><p class="font-semibold">{p.t}°C</p><p class="text-xs">{p.ws} km/j</p></div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-        </>
-    ) : (
-        <div class="bg-secondary-100 border-l-4 border-secondary-500 text-secondary-800 p-4 rounded-md text-center" role="alert">
-            <p class="font-bold">Gagal Memuat Data</p>
-            <p>Tidak dapat mengambil data prakiraan cuaca dari server BMKG. Mohon periksa koneksi internet Anda atau coba lagi nanti.</p>
+    {weatherData && current ? (
+      <main class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 fade-in" style="animation-delay: 100ms;">
+                <CurrentWeather client:load data={current} />
+            </div>
+            <div class="lg:col-span-1 fade-in" style="animation-delay: 200ms;">
+                <PanduanPetani client:load weatherData={weatherData} />
+            </div>
         </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="fade-in" style="animation-delay: 300ms;">
+                <InfoCard client:load icon="🌡️" title="Suhu" value={current.t} unit="°C" />
+            </div>
+            <div class="fade-in" style="animation-delay: 400ms;">
+                <InfoCard client:load icon="💧" title="Kelembapan" value={current.hu} unit="%" />
+            </div>
+            <div class="fade-in" style="animation-delay: 500ms;">
+                 <InfoCard client:load icon="💨" title="Angin" value={current.ws} unit="km/j" description={`Arah ${current.wd}.`} />
+            </div>
+            <div class="fade-in" style="animation-delay: 600ms;">
+                <InfoCard client:load icon="🔽" title="Tekanan" value="1010" unit="hPa" description="Data simulasi." />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div id="prakiraan" class="lg:col-span-2 fade-in" style="animation-delay: 700ms;">
+                <HourlyForecast client:load prakiraan={weatherData.prakiraan} />
+            </div>
+            <div class="lg:col-span-1 fade-in" style="animation-delay: 800ms;">
+                <DailyForecast client:load prakiraan={weatherData.prakiraan} />
+            </div>
+        </div>
+
+        {/* --- PERBAIKAN DI SINI: Latar belakang kartu dibuat solid --- */}
+        <div class="bg-white dark:bg-neutral-800 p-6 rounded-2xl shadow-md text-center fade-in" style="animation-delay: 900ms;">
+            <h3 class="text-xl font-bold text-primary-800 dark:text-primary-200 mb-2">Arsipkan Data Cuaca</h3>
+            <p class="text-neutral-600 dark:text-neutral-400 mb-4 max-w-lg mx-auto text-sm">
+                Unduh data cuaca lengkap sebagai file Excel atau simpan tampilan dashboard sebagai PDF.
+            </p>
+            <div class="flex justify-center">
+                 <ExportButtons client:load dataToExport={exportData} elementIdToCapture="weather-dashboard" />
+            </div>
+        </div>
+      </main>
+    ) : (
+      <div class="text-center py-20 bg-white dark:bg-neutral-800 rounded-2xl shadow-md">
+        <p class="text-xl text-neutral-500 dark:text-neutral-300">Gagal memuat data cuaca. Silakan coba lagi nanti.</p>
+      </div>
     )}
-</MainLayout>
+
+  </div>
+</Layout>

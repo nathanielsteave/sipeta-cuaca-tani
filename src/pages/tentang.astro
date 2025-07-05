@@ -1,19 +1,48 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
-<MainLayout title="Tentang SIPETA">
-    <div class="max-w-4xl mx-auto bg-white p-8 sm:p-10 rounded-lg shadow-md">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-700 mb-6">Tentang SIPETA</h1>
-        <div class="prose prose-lg max-w-none text-neutral-700">
-            <p><strong>SIPETA (Sistem Informasi Prakiraan Cuaca Tani)</strong> adalah sebuah platform digital yang lahir dari kebutuhan untuk menjembatani antara data meteorologi modern dengan kearifan lokal para petani di Indonesia. Kami percaya bahwa akses terhadap informasi cuaca yang akurat, tepat waktu, dan mudah dipahami adalah kunci untuk meningkatkan produktivitas dan ketahanan sektor pertanian.</p>
-            <h2 class="text-2xl font-bold text-neutral-800 mt-8">Misi Kami</h2>
-            <p>Misi kami adalah memberdayakan setiap petani dengan alat bantu digital untuk membuat keputusan yang lebih baik. Mulai dari menentukan jadwal tanam yang optimal, mengantisipasi risiko gagal panen akibat cuaca ekstrem, hingga melakukan praktik pertanian yang lebih efisien dan berkelanjutan.</p>
-            <h2 class="text-2xl font-bold text-neutral-800 mt-8">Teknologi di Balik SIPETA</h2>
-            <ul class="list-disc pl-5">
-                <li><strong>Data Real-time:</strong> Kami terintegrasi langsung dengan API publik dari Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia.</li>
-                <li><strong>Performa Cepat:</strong> Website ini dibangun dengan Astro.js, sebuah framework modern yang memastikan halaman dapat diakses dengan sangat cepat, bahkan pada koneksi internet yang terbatas.</li>
-                <li><strong>Desain Responsif:</strong> Didesain menggunakan Tailwind CSS agar nyaman diakses melalui berbagai perangkat, baik ponsel, tablet, maupun komputer.</li>
-            </ul>
+
+<Layout title="Tentang SiPETA Cuaca Tani">
+  <div class="max-w-4xl mx-auto p-4 sm:p-6 space-y-8">
+    <header class="fade-in text-center">
+      <h1 class="text-4xl font-extrabold text-primary-800 dark:text-primary-200">Tentang SiPETA Cuaca Tani</h1>
+      <p class="text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl mx-auto">Sistem Informasi Petani Cerdas Cuaca Tani.</p>
+    </header>
+
+    <main class="space-y-12">
+      <section class="relative fade-in" style="animation-delay: 100ms;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="relative z-10 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-300 mb-4">Tim Pengembang</h2>
+            <p class="text-sm font-semibold">KKN Kelompok 221</p>
+            <p class="text-sm mb-4">Universitas Sebelas Maret</p>
+            <p class="text-sm">
+              SiPETA Cuaca Tani lahir sebagai solusi digital untuk membantu para petani di Desa Bagor Kulon, Nganjuk. Kami berdedikasi menerapkan ilmu pengetahuan untuk memberikan dampak positif bagi masyarakat.
+            </p>
+          </div>
+          <div class="relative h-64 md:h-full rounded-2xl shadow-lg overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+              alt="Tim KKN UNS 221" 
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
         </div>
-    </div>
-</MainLayout>
+      </section>
+
+      <section class="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-md fade-in" style="animation-delay: 200ms;">
+         <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-300 text-center mb-6">Misi & Teknologi Kami</h2>
+         <div class="grid md:grid-cols-2 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="font-bold text-lg mb-2">🎯 Misi Utama</h3>
+                <p class="text-sm">Menyediakan informasi cuaca yang akurat, relevan, dan mudah dipahami untuk mendukung keputusan pertanian, dari tanam hingga panen.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2">⚙️ Sumber Data & Teknologi</h3>
+                <p class="text-sm">Data cuaca kami bersumber langsung dari API publik <a href="https://data.bmkg.go.id/" target="_blank" rel="noopener noreferrer" class="text-secondary-600 dark:text-secondary-400 hover:underline font-semibold">BMKG</a>. Aplikasi ini dibangun menggunakan teknologi modern seperti Astro, React, dan Tailwind CSS.</p>
+            </div>
+         </div>
+      </section>
+    </main>
+  </div>
+</Layout>
