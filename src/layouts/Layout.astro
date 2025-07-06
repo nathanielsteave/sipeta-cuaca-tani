@@ -21,7 +21,6 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
-        {/* --- SKRIP BARU YANG LEBIH AMAN --- */}
         <script is:inline>
             const getTheme = () => {
                 const now = new Date();
@@ -60,7 +59,7 @@ const { title } = Astro.props;
 		</main>
 		<footer class="text-center py-4 bg-white dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700 transition-colors duration-500">
 			<p class="text-neutral-500 dark:text-neutral-400 text-xs">
-				© {new Date().getFullYear()} Sipeta | Diolah oleh Tim KKN UNS 221
+				© {new Date().getFullYear()} SiPETA Cuaca Tani | Diolah oleh Tim KKN UNS 221
 			</p>
 		</footer>
 	</body>
