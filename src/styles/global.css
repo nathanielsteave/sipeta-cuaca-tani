@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@layer base {
+    @apply transition-colors duration-500;
+}
+
+/* --- PERUBAHAN DI SINI --- */
+.bg-day {
+    /* Gradien dari biru langit terang ke biru yang sedikit lebih pekat */
+    @apply bg-gradient-to-b from-sky-200 to-sky-400 text-neutral-800;
+}
+
 @layer utilities {
     .fade-in {
         animation: fadeIn 0.5s ease-in-out;
@@ -10,6 +20,7 @@
             opacity: 0;
             transform: translateY(10px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);

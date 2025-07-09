@@ -1,6 +1,6 @@
 // src/components/WeatherDashboard.jsx
 import React, { useState, useEffect } from 'react';
-import { getWeatherForBagorKulon } from '../services/bmkg.ts'; // Pastikan path ini benar
+import { getWeatherForBagorKulon } from '../services/bmkg.ts';
 
 // Import semua komponen display Anda
 import CurrentWeather from './weather/CurrentWeather';
@@ -9,14 +9,13 @@ import DailyForecast from './weather/DailyForecast';
 import PanduanPetani from './weather/PanduanPetani';
 import InfoCard from './weather/InfoCard';
 import ExportButtons from './interactive/ExportButtons';
+import AktivitasTani from './weather/AktivitasTani.jsx';
 
 export default function WeatherDashboard() {
-  // State untuk menyimpan data cuaca, status loading, dan error
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // useEffect akan berjalan di browser pengguna setelah halaman dimuat
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -34,9 +33,32 @@ export default function WeatherDashboard() {
     };
 
     fetchWeatherData();
-  }, []); // Array kosong memastikan ini hanya berjalan sekali saat komponen dimuat
+  }, []);
 
-  // Tampilkan pesan loading
+  const getWateringNeed = (prakiraan) => {
+    const willRainSoon = prakiraan.slice(0, 4).some(p => parseInt(p.image) >= 60);
+
+    if (willRainSoon) {
+      return {
+        value: "Rendah",
+        desc: "Akan segera turun hujan."
+      };
+    }
+
+    const current = prakiraan[0];
+    if (parseInt(current.t) > 32 && parseInt(current.hu) < 75) {
+      return {
+        value: "Tinggi",
+        desc: "Cuaca panas dan kering."
+      };
+    }
+
+    return {
+      value: "Normal",
+      desc: "Cek kelembapan tanah."
+    };
+  };
+
   if (loading) {
     return (
       <div className="text-center py-20">
@@ -45,7 +67,6 @@ export default function WeatherDashboard() {
     );
   }
 
-  // Tampilkan pesan error jika ada
   if (error) {
     return (
       <div className="text-center py-20 bg-red-100 dark:bg-red-900/50 p-6 rounded-lg">
@@ -54,11 +75,11 @@ export default function WeatherDashboard() {
       </div>
     );
   }
-  
-  // Jika data berhasil dimuat, tampilkan semua komponen
+
   if (weatherData) {
     const { lokasi, prakiraan } = weatherData;
     const prakiraanTerkini = prakiraan[0];
+    const wateringNeed = getWateringNeed(prakiraan); // Hitung kebutuhan air
     const dataForExcel = prakiraan.map(p => ({
         WaktuLokal: p.local_datetime,
         SuhuC: p.t,
@@ -72,7 +93,7 @@ export default function WeatherDashboard() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-neutral-800 dark:text-white">
+            <h1 className="text-3xl font-bold text-black">
               Prakiraan Cuaca untuk {lokasi.desa}
             </h1>
             <p className="text-neutral-600 dark:text-neutral-400">
@@ -87,18 +108,20 @@ export default function WeatherDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <DailyForecast prakiraan={prakiraan} />
-          <PanduanPetani weatherData={weatherData} />
+          {/* --- TAMPILKAN KARTU BARU DI SINI --- */}
+          <AktivitasTani weatherData={weatherData} />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <InfoCard icon="💨" title="Angin" value={prakiraanTerkini.ws} unit="km/jam" description={`Arah ${prakiraanTerkini.wd}`} />
+          {/* --- TAMPILKAN KARTU KEBUTUHAN AIR DI SINI --- */}
+          <InfoCard icon="💧" title="Kebutuhan Air" value={wateringNeed.value} unit="" description={wateringNeed.desc} />
           <InfoCard icon="🌡️" title="Suhu" value={prakiraanTerkini.t} unit="°C" description="Suhu saat ini" />
-          <InfoCard icon="💧" title="Kelembapan" value={prakiraanTerkini.hu} unit="%" description="Kelembapan udara" />
           <InfoCard icon="🕒" title="Waktu" value={new Date(prakiraanTerkini.local_datetime).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} unit="" description="Waktu data terakhir" />
         </div>
       </div>
     );
   }
 
-  return null; // Tampilkan null jika tidak ada data sama sekali
+  return null;
 }

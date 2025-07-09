@@ -10,13 +10,15 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
 <Layout title="Pusat Pengetahuan - SiPETA Cuaca Tani">
   <div class="max-w-4xl mx-auto p-4 sm:p-6 space-y-8">
     <header class="fade-in text-center">
-      <h1 class="text-4xl font-extrabold text-primary-800 dark:text-primary-200">Pusat Pengetahuan Petani</h1>
+      {/* --- PERUBAHAN DI SINI --- */}
+      <h1 class="text-4xl font-extrabold text-black">Pusat Pengetahuan Petani</h1>
       <p class="text-neutral-600 dark:text-neutral-400 mt-2">Panduan lengkap dari persiapan lahan hingga pasca-panen.</p>
     </header>
 
     <main class="space-y-12">
       <section class="fade-in" style="animation-delay: 100ms;">
-        <h2 class="text-2xl font-bold mb-4 text-center text-neutral-800 dark:text-neutral-200">💡 Rekomendasi Cepat Hari Ini</h2>
+        {/* --- PERUBAHAN DI SINI --- */}
+        <h2 class="text-2xl font-bold mb-4 text-center text-black">💡 Rekomendasi Cepat Hari Ini</h2>
         {weatherData ? (
           <PanduanPetani client:load weatherData={weatherData} />
         ) : (
@@ -27,10 +29,12 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
       </section>
       
       <section class="fade-in" style="animation-delay: 200ms;">
-        <h2 class="text-2xl font-bold mb-4 text-center text-neutral-800 dark:text-neutral-200">📚 Panduan Lengkap Pertanian</h2>
+        {/* --- PERUBAHAN DI SINI --- */}
+        <h2 class="text-2xl font-bold mb-4 text-center text-black">📚 Panduan Lengkap Pertanian</h2>
         <div class="space-y-4">
           
-          <h3 class="font-bold text-xl text-primary-700 dark:text-primary-300 mt-6 border-b-2 border-primary-200 dark:border-primary-800 pb-2">A. Berdasarkan Fase Tanaman</h3>
+          {/* --- PERUBAHAN DI SINI --- */}
+          <h3 class="font-bold text-xl text-black mt-6 border-b-2 border-primary-200 dark:border-primary-800 pb-2">A. Berdasarkan Fase Tanaman</h3>
 
           <Accordion title="Persiapan Lahan" icon="🚜">
             <p class="mb-2">Kunci dari fase ini adalah <strong class="text-secondary-700 dark:text-secondary-400">kondisi tanah yang tepat</strong>. Lakukan saat tanah tidak terlalu basah dan tidak ada prediksi hujan lebat.</p>
@@ -58,7 +62,7 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
             </ul>
           </Accordion>
 
-           <Accordion title="Panen & Pasca-Panen" icon="🌾">
+            <Accordion title="Panen & Pasca-Panen" icon="🌾">
             <p class="mb-2">Cuaca saat panen dan setelahnya sangat <strong class="text-secondary-700 dark:text-secondary-400">menentukan kualitas</strong> hasil akhir.</p>
             <ul class="space-y-2">
               <li><strong>Waktu Panen:</strong> Usahakan panen pada hari yang cerah untuk mengurangi kadar air awal pada hasil panen.</li>
@@ -66,23 +70,24 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
             </ul>
           </Accordion>
 
-          <h3 class="font-bold text-xl text-primary-700 dark:text-primary-300 mt-8 border-b-2 border-primary-200 dark:border-primary-800 pb-2">B. Menghadapi Cuaca Ekstrem</h3>
+          {/* --- PERUBAHAN DI SINI --- */}
+          <h3 class="font-bold text-xl text-black mt-8 border-b-2 border-primary-200 dark:border-primary-800 pb-2">B. Menghadapi Cuaca Ekstrem</h3>
 
-           <Accordion title="Strategi Musim Kemarau" icon="🏜️">
-             <ul class="space-y-2">
-              <li><strong>Konservasi Air:</strong> Gunakan sistem irigasi tetes atau buat rorak (lubang resapan) untuk menampung sisa air hujan.</li>
-              <li><strong>Gunakan Mulsa:</strong> Tutup permukaan tanah dengan jerami atau mulsa plastik untuk menekan penguapan.</li>
-              <li><strong>Pilih Tanaman Tahan Kering:</strong> Pertimbangkan menanam sorgum, jagung, atau singkong.</li>
-            </ul>
-           </Accordion>
+            <Accordion title="Strategi Musim Kemarau" icon="🏜️">
+              <ul class="space-y-2">
+                <li><strong>Konservasi Air:</strong> Gunakan sistem irigasi tetes atau buat rorak (lubang resapan) untuk menampung sisa air hujan.</li>
+                <li><strong>Gunakan Mulsa:</strong> Tutup permukaan tanah dengan jerami atau mulsa plastik untuk menekan penguapan.</li>
+                <li><strong>Pilih Tanaman Tahan Kering:</strong> Pertimbangkan menanam sorgum, jagung, atau singkong.</li>
+              </ul>
+            </Accordion>
 
-           <Accordion title="Strategi Musim Hujan" icon="🌧️">
-             <ul class="space-y-2">
-              <li><strong>Perkuat Drainase:</strong> Pastikan saluran pembuangan air di sekitar lahan tidak tersumbat dan lancar.</li>
-              <li><strong>Pascabanjir:</strong> Setelah air surut, segera bersihkan lumpur yang menempel pada daun. Semprotkan fungisida untuk mencegah penyakit busuk akar.</li>
-              <li><strong>Jarak Tanam:</strong> Beri jarak tanam yang sedikit lebih lebar untuk meningkatkan sirkulasi udara dan mengurangi kelembapan antar tanaman.</li>
-            </ul>
-           </Accordion>
+            <Accordion title="Strategi Musim Hujan" icon="🌧️">
+              <ul class="space-y-2">
+                <li><strong>Perkuat Drainase:</strong> Pastikan saluran pembuangan air di sekitar lahan tidak tersumbat dan lancar.</li>
+                <li><strong>Pascabanjir:</strong> Setelah air surut, segera bersihkan lumpur yang menempel pada daun. Semprotkan fungisida untuk mencegah penyakit busuk akar.</li>
+                <li><strong>Jarak Tanam:</strong> Beri jarak tanam yang sedikit lebih lebar untuk meningkatkan sirkulasi udara dan mengurangi kelembapan antar tanaman.</li>
+              </ul>
+            </Accordion>
 
         </div>
       </section>
