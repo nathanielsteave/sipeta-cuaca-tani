@@ -19,12 +19,7 @@ const getWeatherIcon = (weatherCode, local_datetime) => {
 export default function CurrentWeather({ data }) {
     if (!data) return null;
 
-    const hour = new Date(data.local_datetime).getHours();
-    const isNight = hour >= 18 || hour < 6;
-
-    const backgroundClass = isNight
-        ? 'from-navy-800 to-navy-900' // Langit malam
-        : 'from-sky-300 to-sky-500' // Langit siang
+    const backgroundClass = 'from-sky-300 to-sky-500'; // Selalu tema siang
 
     return (
         <div className={`bg-gradient-to-br ${backgroundClass} text-white p-6 rounded-2xl shadow-lg flex justify-between items-center transition-transform duration-300 hover:scale-[1.02]`}>

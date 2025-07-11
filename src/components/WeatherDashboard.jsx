@@ -62,16 +62,16 @@ export default function WeatherDashboard() {
   if (loading) {
     return (
       <div className="text-center py-20">
-        <p className="text-lg font-semibold dark:text-white">Sedang mengambil data cuaca terbaru...</p>
+        <p className="text-lg font-semibold text-black">Sedang mengambil data cuaca terbaru...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-20 bg-red-100 dark:bg-red-900/50 p-6 rounded-lg">
-        <p className="text-red-700 dark:text-red-300 font-bold">Terjadi Kesalahan</p>
-        <p className="text-red-600 dark:text-red-400">{error}</p>
+      <div className="text-center py-20 bg-red-100 p-6 rounded-lg">
+        <p className="text-red-700 font-bold">Terjadi Kesalahan</p>
+        <p className="text-red-600">{error}</p>
       </div>
     );
   }
@@ -96,7 +96,7 @@ export default function WeatherDashboard() {
             <h1 className="text-3xl font-bold text-black">
               Prakiraan Cuaca untuk {lokasi.desa}
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-neutral-800">
               {lokasi.kecamatan}, {lokasi.kotkab}, {lokasi.provinsi}
             </p>
           </div>
@@ -104,17 +104,19 @@ export default function WeatherDashboard() {
         </div>
 
         <CurrentWeather data={prakiraanTerkini} />
-        <HourlyForecast prakiraan={prakiraan} />
 
+        {/* --- KARTU PANDUAN DAN AKTIVITAS DIPINDAH KE SINI --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <DailyForecast prakiraan={prakiraan} />
-          {/* --- TAMPILKAN KARTU BARU DI SINI --- */}
+          <PanduanPetani weatherData={weatherData} />
           <AktivitasTani weatherData={weatherData} />
         </div>
 
+        <HourlyForecast prakiraan={prakiraan} />
+        
+        <DailyForecast prakiraan={prakiraan} />
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <InfoCard icon="💨" title="Angin" value={prakiraanTerkini.ws} unit="km/jam" description={`Arah ${prakiraanTerkini.wd}`} />
-          {/* --- TAMPILKAN KARTU KEBUTUHAN AIR DI SINI --- */}
           <InfoCard icon="💧" title="Kebutuhan Air" value={wateringNeed.value} unit="" description={wateringNeed.desc} />
           <InfoCard icon="🌡️" title="Suhu" value={prakiraanTerkini.t} unit="°C" description="Suhu saat ini" />
           <InfoCard icon="🕒" title="Waktu" value={new Date(prakiraanTerkini.local_datetime).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} unit="" description="Waktu data terakhir" />

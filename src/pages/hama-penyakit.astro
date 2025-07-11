@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// --- DATA HAMA PADI ---
+const hamaPadi = [
+    {
+        nama: "Wereng Batang Coklat",
+        gambar: "/wereng-batang-coklat.jpg",
+        gejala: "Tanaman menguning dan kering seperti terbakar (hopperburn). Hama bergerombol di pangkal batang.",
+        penanganan: "Gunakan varietas tahan (Inpari 32), tanam serempak, dan gunakan insektisida berbahan aktif Buprofezin atau Imidacloprid jika populasi tinggi."
+    },
+    {
+        nama: "Penggerek Batang (Sundep/Beluk)",
+        gambar: "/penggerek-batang.jpg",
+        gejala: "Pucuk tanaman mati kering (sundep) pada fase vegetatif. Malai kosong dan berwarna putih (beluk) saat fase generatif.",
+        penanganan: "Ambil dan musnahkan kelompok telur, tanam serempak, dan gunakan insektisida sistemik berbahan aktif Fipronil atau Karbofuran."
+    },
+    {
+        nama: "Tikus Sawah",
+        gambar: "/tikus-sawah.jpg",
+        gejala: "Batang padi terpotong di bagian pangkal, seringkali tidak putus. Kerusakan biasanya terjadi di tengah petakan.",
+        penanganan: "Lakukan gropyokan massal sebelum tanam. Pasang umpan beracun atau perangkap. Jaga sanitasi sawah agar tidak menjadi sarang."
+    },
+     {
+        nama: "Walang Sangit",
+        gambar: "/walang-sangit.png",
+        gejala: "Menyerang bulir padi saat fase pengisian, menyebabkan bulir menjadi hampa atau berkualitas buruk. Mengeluarkan bau yang khas.",
+        penanganan: "Tanam serempak, bersihkan gulma di sekitar sawah. Lakukan penyemprotan insektisida berbahan aktif BPMC pada pagi hari."
+    },
+];
+
+// --- DATA PENYAKIT PADI ---
+const penyakitPadi = [
+    {
+        nama: "Hawar Daun Bakteri (Kresek)",
+        gambar: "/hawar-daun-bakteri.jpg",
+        gejala: "Tepi daun menguning dari ujung hingga pangkal dengan pola seperti huruf V, lalu mengering. Pada serangan parah, tanaman mati.",
+        penanganan: "Gunakan benih sehat, jangan memupuk Nitrogen (N) berlebihan. Perbaiki drainase. Gunakan bakterisida jika diperlukan."
+    },
+    {
+        nama: "Penyakit Blas",
+        gambar: "/penyakit-blas.jpg",
+        gejala: "Bercak coklat berbentuk belah ketupat pada daun. Pada leher malai, menyebabkan patah leher sehingga pengisian bulir gagal.",
+        penanganan: "Gunakan varietas tahan, hindari pemupukan Nitrogen (N) berlebih. Semprot dengan fungisida berbahan aktif Trisiklazol."
+    }
+];
+
+// --- DATA HAMA BAWANG MERAH ---
+const hamaBawang = [
+    {
+        nama: "Ulat Grayak (Spodoptera exigua)",
+        gambar: "/ulat-grayak.jpg",
+        gejala: "Daun berlubang-lubang transparan karena bagian dalam daun dimakan. Serangan parah membuat tanaman gundul.",
+        penanganan: "Kumpulkan dan musnahkan kelompok telur/larva. Gunakan perangkap feromon atau insektisida berbahan aktif Klorantraniliprol."
+    },
+    {
+        nama: "Lalat Penggorok Daun",
+        gambar: "/lalat-penggorok-daun.jpg",
+        gejala: "Terdapat liang atau korokan berwarna putih berkelok-kelok di permukaan daun.",
+        penanganan: "Gunakan perangkap likat kuning. Lakukan penyemprotan insektisida sistemik berbahan aktif Abamectin atau Siromazin."
+    }
+];
+
+// --- DATA PENYAKIT BAWANG MERAH ---
+const penyakitBawang = [
+     {
+        nama: "Layu Fusarium",
+        gambar: "/layu-fusarium.jpg",
+        gejala: "Daun menguning, terkulai, dan pangkal batang membusuk. Tanaman mudah dicabut karena akar rusak.",
+        penanganan: "Cabut dan bakar tanaman terinfeksi. Gunakan agens hayati Trichoderma sp. saat pengolahan lahan. Hindari genangan air."
+    },
+    {
+        nama: "Bercak Ungu (Trotol)",
+        gambar: "/bercak-ungu.jpg",
+        gejala: "Bercak kecil melekuk berwarna keputihan atau keunguan pada daun, seringkali dengan cincin konsentris.",
+        penanganan: "Jaga jarak tanam agar tidak terlalu rapat. Lakukan penyemprotan fungisida kontak seperti Mankozeb atau Klorotalonil."
+    },
+    {
+        nama: "Antraknosa",
+        gambar: "/antraknosa.jpg",
+        gejala: "Bercak putih pada daun yang meluas dan menyebabkan daun seperti tersiram air panas, lalu patah.",
+        penanganan: "Kurangi kelembapan dengan jarak tanam yang lebar. Gunakan fungisida sistemik berbahan aktif Difenokonazol."
+    }
+]
+---
+<Layout title="Hama & Penyakit - SiPETA Cuaca Tani">
+    <div class="max-w-5xl mx-auto p-4 sm:p-6 space-y-8">
+        <header class="fade-in text-center">
+            <h1 class="text-4xl font-extrabold text-black">Kenali Hama & Penyakit Utama</h1>
+            <p class="text-black mt-2">Identifikasi dan cara penanganan hama & penyakit pada tanaman padi dan bawang merah.</p>
+        </header>
+
+        <main class="space-y-12">
+            <section>
+                <h2 class="text-3xl font-bold text-green-800 mb-2">🌾 Tanaman Padi</h2>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-green-800 pl-3">Hama</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {hamaPadi.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-green-800 pl-3">Penyakit</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {penyakitPadi.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-red-800 mb-2">🧅 Tanaman Bawang Merah</h2>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-red-800 pl-3">Hama</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {hamaBawang.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                 <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-red-800 pl-3">Penyakit</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {penyakitBawang.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        </main>
+        <p class="text-center text-xs text-neutral-500 pt-4"><strong>Catatan:</strong> Gambar yang ditampilkan adalah ilustrasi. Untuk hasil identifikasi yang akurat, konsultasikan dengan Petugas Penyuluh Lapangan (PPL) setempat.</p>
+    </div>
+</Layout>

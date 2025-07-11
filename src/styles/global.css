@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
-    @apply transition-colors duration-500;
+    /* Transisi warna tidak lagi diperlukan */
 }
 
 /* --- PERUBAHAN DI SINI --- */

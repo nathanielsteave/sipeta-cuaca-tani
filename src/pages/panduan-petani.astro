@@ -10,97 +10,110 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
 <Layout title="Pusat Pengetahuan - SiPETA Cuaca Tani">
   <div class="max-w-4xl mx-auto p-4 sm:p-6 space-y-8">
     <header class="fade-in text-center">
-      {/* --- PERUBAHAN DI SINI --- */}
       <h1 class="text-4xl font-extrabold text-black">Pusat Pengetahuan Petani</h1>
-      <p class="text-neutral-600 dark:text-neutral-400 mt-2">Panduan lengkap dari persiapan lahan hingga pasca-panen.</p>
+      <p class="text-black mt-2">Panduan lengkap dari persiapan lahan hingga pasca-panen.</p>
     </header>
 
     <main class="space-y-12">
       <section class="fade-in" style="animation-delay: 100ms;">
-        {/* --- PERUBAHAN DI SINI --- */}
         <h2 class="text-2xl font-bold mb-4 text-center text-black">💡 Rekomendasi Cepat Hari Ini</h2>
         {weatherData ? (
           <PanduanPetani client:load weatherData={weatherData} />
         ) : (
-          <div class="text-center py-10 bg-white dark:bg-neutral-800 rounded-2xl shadow-md">
-            <p class="text-lg text-neutral-500 dark:text-neutral-300">Gagal memuat rekomendasi cuaca.</p>
+          <div class="text-center py-10 bg-white rounded-2xl shadow-md">
+            <p class="text-lg text-neutral-500">Gagal memuat rekomendasi cuaca.</p>
           </div>
         )}
       </section>
       
       <section class="fade-in" style="animation-delay: 200ms;">
-        {/* --- PERUBAHAN DI SINI --- */}
-        <h2 class="text-2xl font-bold mb-4 text-center text-black">📚 Panduan Lengkap Pertanian</h2>
+        <h2 class="text-2xl font-bold mb-4 text-center text-black">📖 Kamus Aksi Petani</h2>
+        <div class="space-y-3">
+          <Accordion title="Saat Prediksi Hujan" icon="💧">
+            <h4 class="font-bold text-lg text-green-700 mb-2">Padi</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Tunda Pemupukan:</strong> Jangan memupuk (terutama pupuk tabur) agar tidak larut dan hilang terbawa air.</li>
+              <li><strong>Periksa Drainase:</strong> Pastikan saluran pembuangan bersih dari gulma dan sampah agar sirkulasi air lancar dan tidak merendam akar terlalu lama.</li>
+              <li><strong>Amankan Benih:</strong> Jika sedang menyemai, pastikan area persemaian terlindungi dari hujan deras.</li>
+            </ul>
+            <h4 class="font-bold text-lg text-red-700 mt-4 mb-2">Bawang Merah</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>PERCEPAT PANEN:</strong> Jika umbi sudah tua, segera panen sebelum hujan tiba untuk menghindari busuk.</li>
+              <li><strong>Waspada Trotol:</strong> Hujan memicu penyakit bercak ungu (trotol). Siapkan fungisida untuk aplikasi setelah hujan reda.</li>
+              <li><strong>Buat Guludan:</strong> Jika baru tanam, tinggikan guludan untuk mencegah umbi terendam.</li>
+            </ul>
+          </Accordion>
+          
+          <Accordion title="Saat Prediksi Panas Terik" icon="☀️">
+             <h4 class="font-bold text-lg text-green-700 mb-2">Padi</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Jaga Level Air (Macak-macak):</strong> Pastikan sawah tergenang air setinggi 2-3 cm. Ini berfungsi untuk mendinginkan tanah, menjaga kelembapan, dan menekan pertumbuhan gulma.</li>
+              <li><strong>Periksa Sumber Air:</strong> Pastikan pasokan air dari irigasi atau sumber lain cukup untuk beberapa hari ke depan karena penguapan akan sangat tinggi.</li>
+            </ul>
+            <h4 class="font-bold text-lg text-red-700 mt-4 mb-2">Bawang Merah</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Jadwal Siram Sore Hari:</strong> Lakukan penyiraman setelah pukul 16:00. Menyiram di siang hari akan membuat air cepat menguap dan berisiko membakar daun.</li>
+              <li><strong>Cek Kelembapan Tanah:</strong> Sebelum menyiram, periksa tanah di kedalaman 5 cm. Jika masih terasa lembap, tunda penyiraman untuk menghindari busuk umbi.</li>
+            </ul>
+          </Accordion>
+
+          <Accordion title="Saat Angin Kencang (>15 km/jam)" icon="💨">
+            <h4 class="font-bold text-lg text-green-700 mb-2">Padi</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Waspada Wereng & Walang Sangit:</strong> Angin membantu penyebaran hama. Periksa pangkal batang (wereng) dan malai padi (walang sangit).</li>
+              <li><strong>Risiko Roboh:</strong> Jika padi dalam fase bunting atau pengisian bulir, angin kencang berisiko merobohkan tanaman.</li>
+            </ul>
+            <h4 class="font-bold text-lg text-red-700 mt-4 mb-2">Bawang Merah</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>TUNDA PENYEMPROTAN:</strong> Jangan menyemprot pestisida/pupuk daun, cairan tidak akan efektif dan terbuang sia-sia.</li>
+                <li><strong>Risiko Daun Rusak:</strong> Gesekan antar daun akibat angin dapat menyebabkan luka, yang menjadi pintu masuk bagi infeksi jamur.</li>
+            </ul>
+          </Accordion>
+
+           <Accordion title="Saat Cuaca Ideal (Cerah & Angin Tenang)" icon="✅">
+            <h4 class="font-bold text-lg text-green-700 mb-2">Padi & Bawang Merah</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Waktu Emas Pemupukan:</strong> Penyerapan nutrisi, baik melalui akar maupun daun (pupuk cair), akan berada pada tingkat paling maksimal.</li>
+               <li><strong>Aplikasi Pestisida Efektif:</strong> Semprotan akan menempel sempurna dan bekerja lebih lama tanpa gangguan hujan atau angin.</li>
+               <li><strong>Penyiangan Gulma:</strong> Mencabut gulma pada kondisi ini akan membuat sisa akarnya cepat kering dan mati.</li>
+            </ul>
+          </Accordion>
+        </div>
+      </section>
+
+      <section class="fade-in" style="animation-delay: 300ms;">
+        <h2 class="text-2xl font-bold mb-4 text-center text-black">📚 Panduan Umum Pertanian</h2>
         <div class="space-y-4">
-          
-          {/* --- PERUBAHAN DI SINI --- */}
-          <h3 class="font-bold text-xl text-black mt-6 border-b-2 border-primary-200 dark:border-primary-800 pb-2">A. Berdasarkan Fase Tanaman</h3>
-
-          <Accordion title="Persiapan Lahan" icon="🚜">
-            <p class="mb-2">Kunci dari fase ini adalah <strong class="text-secondary-700 dark:text-secondary-400">kondisi tanah yang tepat</strong>. Lakukan saat tanah tidak terlalu basah dan tidak ada prediksi hujan lebat.</p>
-            <ul class="space-y-2">
-              <li><strong>Pengolahan Tanah:</strong> Ideal dilakukan beberapa hari setelah hujan ringan. Hindari membajak saat tanah kering keras atau basah lengket.</li>
-              <li><strong>Pembuatan Bedengan:</strong> Di musim hujan, buat bedengan lebih tinggi (±30 cm) untuk mencegah akar terendam air.</li>
-              <li><strong>Pupuk Dasar:</strong> Berikan pupuk kandang/kompos 2-3 minggu sebelum tanam agar nutrisi sempat terurai dan menyatu dengan tanah.</li>
+          <h3 class="font-bold text-xl text-black mt-6 border-b-2 border-primary-200 pb-2">Berdasarkan Fase Tanaman</h3>
+           <Accordion title="Persiapan Lahan" icon="🚜">
+            <p class="mb-2">Fase fondasi yang menentukan 80% keberhasilan. Fokus pada tanah yang gembur dan kaya nutrisi.</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              {/* --- PERBAIKAN DI SINI --- */}
+              <li><strong>Tes pH Tanah:</strong> Gunakan kertas lakmus atau pH meter. pH ideal untuk padi dan bawang adalah 6.0-7.0. Jika terlalu asam (&lt;6.0), tambahkan kapur dolomit saat pengolahan tanah.</li>
+              <li><strong>Pengolahan Tanah:</strong> Lakukan pembajakan sedalam 20-30 cm untuk membasmi gulma dan memperbaiki aerasi tanah. Biarkan 5-7 hari agar racun tanah menguap.</li>
+              <li><strong>Pupuk Dasar:</strong> Berikan pupuk kandang yang sudah matang (tidak panas dan tidak berbau) 1-2 minggu sebelum tanam untuk menyediakan nutrisi organik jangka panjang.</li>
             </ul>
           </Accordion>
           
-          <Accordion title="Penanaman & Pembibitan" icon="🌱">
-            <p class="mb-2">Memilih <strong class="text-secondary-700 dark:text-secondary-400">momentum yang pas</strong> akan sangat menentukan keberhasilan tumbuh tanaman.</p>
-            <ul class="space-y-2">
-                <li><strong>Waktu Tanam Terbaik:</strong> Lakukan pada sore hari (setelah jam 15:00) untuk mengurangi stres tanaman akibat panas matahari.</li>
-                <li><strong>Perhatikan Prediksi Cuaca:</strong> Jika menanam benih, pastikan ada prediksi hujan ringan dalam 1-2 hari ke depan untuk membantu perkecambahan.</li>
+          <Accordion title="Penanaman & Perawatan Awal" icon="🌱">
+            <p class="mb-2">Momentum tepat dan perlakuan awal yang benar akan mengurangi tingkat kematian bibit.</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Seleksi Bibit/Benih:</strong> Gunakan hanya bibit yang sehat, seragam, dan bebas dari tanda-tanda penyakit.</li>
+                <li><strong>Waktu Tanam:</strong> Tanam pada sore hari (setelah jam 15:00) untuk mengurangi stres penguapan pada bibit yang baru dipindah.</li>
+                <li><strong>Pengairan Awal:</strong> Segera siram secukupnya setelah tanam untuk membantu bibit beradaptasi dan agar tanah memadat di sekitar akar.</li>
             </ul>
           </Accordion>
-
-          <Accordion title="Perawatan & Pertumbuhan" icon="🌿">
-            <p class="mb-2">Fase terpanjang yang membutuhkan <strong class="text-secondary-700 dark:text-secondary-400">perhatian rutin</strong> terhadap air, nutrisi, dan hama.</p>
-            <ul class="space-y-2">
-              <li><strong>Pengairan:</strong> Selalu cek kelembapan tanah. Penyiraman paling efektif dilakukan pada pagi atau sore hari.</li>
-              <li><strong>Pemupukan Susulan:</strong> Jangan memupuk tepat sebelum hujan lebat. Waktu terbaik adalah saat tanah dalam kondisi lembab.</li>
-              <li><strong>Pengendalian Hama:</strong> Semprotkan pestisida saat cuaca tenang (tidak berangin) dan tidak akan hujan dalam 4-6 jam kedepan agar efektif.</li>
+           <Accordion title="Panen & Pasca-Panen" icon="🌾">
+            <p class="mb-2">Kualitas hasil panen sangat ditentukan oleh penanganan pada fase krusial ini.</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Tentukan Kematangan Optimal:</strong> Untuk padi, panen saat 90% bulir di malai sudah menguning. Untuk bawang, saat 80-90% daun sudah rebah secara alami.</li>
+              <li><strong>Waktu Panen:</strong> Lakukan panen pada pagi hari yang cerah setelah embun kering untuk mendapatkan kadar air terendah.</li>
+              <li><strong>Pengeringan:</strong> Jemur hasil panen di atas terpal, bukan langsung di tanah. Untuk bawang, lakukan pengeringan awal bersama daunnya selama 7-14 hari hingga leher umbi mengeras.</li>
+               <li><strong>Penyimpanan:</strong> Simpan di tempat yang kering, sejuk, dan memiliki sirkulasi udara yang baik. Gantung bawang atau gunakan rak untuk mencegah tumpukan.</li>
             </ul>
           </Accordion>
-
-            <Accordion title="Panen & Pasca-Panen" icon="🌾">
-            <p class="mb-2">Cuaca saat panen dan setelahnya sangat <strong class="text-secondary-700 dark:text-secondary-400">menentukan kualitas</strong> hasil akhir.</p>
-            <ul class="space-y-2">
-              <li><strong>Waktu Panen:</strong> Usahakan panen pada hari yang cerah untuk mengurangi kadar air awal pada hasil panen.</li>
-              <li><strong>Proses Pengeringan:</strong> Manfaatkan panas matahari secara maksimal. Selalu siapkan terpal atau penutup jika cuaca mendadak mendung.</li>
-            </ul>
-          </Accordion>
-
-          {/* --- PERUBAHAN DI SINI --- */}
-          <h3 class="font-bold text-xl text-black mt-8 border-b-2 border-primary-200 dark:border-primary-800 pb-2">B. Menghadapi Cuaca Ekstrem</h3>
-
-            <Accordion title="Strategi Musim Kemarau" icon="🏜️">
-              <ul class="space-y-2">
-                <li><strong>Konservasi Air:</strong> Gunakan sistem irigasi tetes atau buat rorak (lubang resapan) untuk menampung sisa air hujan.</li>
-                <li><strong>Gunakan Mulsa:</strong> Tutup permukaan tanah dengan jerami atau mulsa plastik untuk menekan penguapan.</li>
-                <li><strong>Pilih Tanaman Tahan Kering:</strong> Pertimbangkan menanam sorgum, jagung, atau singkong.</li>
-              </ul>
-            </Accordion>
-
-            <Accordion title="Strategi Musim Hujan" icon="🌧️">
-              <ul class="space-y-2">
-                <li><strong>Perkuat Drainase:</strong> Pastikan saluran pembuangan air di sekitar lahan tidak tersumbat dan lancar.</li>
-                <li><strong>Pascabanjir:</strong> Setelah air surut, segera bersihkan lumpur yang menempel pada daun. Semprotkan fungisida untuk mencegah penyakit busuk akar.</li>
-                <li><strong>Jarak Tanam:</strong> Beri jarak tanam yang sedikit lebih lebar untuk meningkatkan sirkulasi udara dan mengurangi kelembapan antar tanaman.</li>
-              </ul>
-            </Accordion>
-
         </div>
       </section>
     </main>
   </div>
 </Layout>
-
-<style>
-/* Style tambahan untuk list agar lebih rapi */
-.prose ul {
-  padding-left: 1.25rem;
-}
-.prose ul > li::marker {
-  color: var(--tw-prose-counters);
-}
-</style>

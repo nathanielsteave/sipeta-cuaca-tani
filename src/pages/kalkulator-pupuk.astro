@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import KalkulatorPupuk from '../components/interactive/KalkulatorPupuk.jsx';
+---
+
+<Layout title="Kalkulator Pupuk - SiPETA Cuaca Tani">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 space-y-8">
+        <header class="fade-in text-center">
+            <h1 class="text-4xl font-extrabold text-black">Kalkulator Kebutuhan Pupuk</h1>
+            <p class="text-black mt-2">Hitung estimasi kebutuhan pupuk untuk lahan Anda berdasarkan rekomendasi umum.</p>
+        </header>
+
+        <main class="fade-in" style="animation-delay: 100ms;">
+            <KalkulatorPupuk client:load />
+        </main>
+    </div>
+</Layout>
