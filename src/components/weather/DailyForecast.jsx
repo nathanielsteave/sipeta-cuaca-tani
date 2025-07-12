@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Fungsi utama untuk mendapatkan ikon cuaca, sudah memperhitungkan siang/malam
 const getWeatherIcon = (weatherCode, local_datetime) => {
     const code = parseInt(weatherCode);
     const hour = new Date(local_datetime).getHours();
@@ -8,13 +9,14 @@ const getWeatherIcon = (weatherCode, local_datetime) => {
     if (code === 1 || code === 2) return isNight ? '☁️' : '🌤️';
     if (code === 3) return '☁️';
     if (code === 4) return '🌥️';
-    if (code === 5) return '🌫️';
-    if (code >= 10 && code <= 60) return '🌧️';
-    if (code >= 61 && code <= 97) return '⛈️';
-
+    if (code === 5 || code === 10 || code === 45) return '🌫️';
+    if (code >= 60 && code <= 97) return '⛈️';
+    
+    // Default untuk kode 0 (Cerah)
     return isNight ? '🌙' : '☀️';
 };
 
+// Fungsi untuk mengelompokkan data prakiraan per hari
 const groupForecastByDay = (prakiraan) => {
     const grouped = {};
     prakiraan.forEach(p => {
@@ -32,13 +34,27 @@ export default function DailyForecast({ prakiraan }) {
 
     const dailyData = groupForecastByDay(prakiraan).map(dayForecast => {
         const temps = dayForecast.map(p => parseFloat(p.t));
-        const representativeWeather = dayForecast.find(p => p.local_datetime.includes('12:00')) || dayForecast[0];
         
+        // --- LOGIKA PEMILIHAN IKON YANG DIPERBAIKI ---
+
+        // 1. Cari prakiraan representatif untuk SIANG HARI (antara jam 9 pagi - 5 sore)
+        const dayTimeForecasts = dayForecast.filter(p => {
+            const hour = new Date(p.local_datetime).getHours();
+            return hour >= 9 && hour < 18;
+        });
+        const dayWeather = dayTimeForecasts.find(p => p.local_datetime.includes('12:00')) || dayTimeForecasts[0] || dayForecast[0];
+
+        // 2. Cari prakiraan representatif untuk MALAM HARI (jam 6 sore ke atas)
+        const nightTimeForecasts = dayForecast.filter(p => new Date(p.local_datetime).getHours() >= 18);
+        const nightWeather = nightTimeForecasts[0]; // Ambil data jam malam pertama yang tersedia
+
         return {
             date: new Date(dayForecast[0].local_datetime),
             maxTemp: Math.max(...temps),
             minTemp: Math.min(...temps),
-            weatherIcon: getWeatherIcon(representativeWeather.image, representativeWeather.local_datetime),
+            dayIcon: getWeatherIcon(dayWeather.image, dayWeather.local_datetime),
+            // Jika ada data malam, proses. Jika tidak, kembalikan null.
+            nightIcon: nightWeather ? getWeatherIcon(nightWeather.image, nightWeather.local_datetime) : null,
         };
     }).slice(0, 3);
 
@@ -51,7 +67,18 @@ export default function DailyForecast({ prakiraan }) {
                         <p className="font-semibold w-1/3 text-white/90">
                             {day.date.toLocaleDateString('id-ID', { weekday: 'long' })}
                         </p>
-                        <div className="text-xl w-1/3 text-center">{day.weatherIcon}</div>
+                        
+                        <div className="w-1/3 text-center text-xl">
+                            <span>{day.dayIcon}</span>
+                            {/* Tampilkan ikon malam HANYA jika ada datanya */}
+                            {day.nightIcon && (
+                                <>
+                                    <span className="mx-1 text-white/80">/</span>
+                                    <span>{day.nightIcon}</span>
+                                </>
+                            )}
+                        </div>
+
                         <div className="w-1/3 text-right">
                             <span className="font-bold text-white">{day.maxTemp.toFixed(0)}°</span>
                             <span className="text-sky-100"> / {day.minTemp.toFixed(0)}°</span>

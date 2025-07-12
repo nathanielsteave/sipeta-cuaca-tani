@@ -1,25 +1,27 @@
 import React from 'react';
 
+// Fungsi untuk mendapatkan ikon cuaca
 const getWeatherIcon = (weatherCode, local_datetime) => {
     const code = parseInt(weatherCode);
     const hour = new Date(local_datetime).getHours();
     const isNight = hour >= 18 || hour < 6;
 
-    if (code === 1 || code === 2) return isNight ? '☁️' : '🌤️'; // Cerah Berawan
-    if (code === 3) return '☁️'; // Berawan
-    if (code === 4) return '🌥️'; // Berawan Tebal
-    if (code === 5) return '🌫️'; // Kabut
-    if (code >= 10 && code <= 60) return '🌧️'; // Hujan Ringan hingga Sedang
-    if (code >= 61 && code <= 97) return '⛈️'; // Hujan Lebat/Petir
-
-    // Fallback ke cerah/malam jika tidak ada yang cocok
+    if (code === 1 || code === 2) return isNight ? '☁️' : '🌤️';
+    if (code === 3) return '☁️';
+    if (code === 4) return '🌥️';
+    if (code === 5) return '🌫️';
+    if (code >= 10 && code <= 60) return '🌧️';
+    if (code >= 61 && code <= 97) return '⛈️';
+    
     return isNight ? '🌙' : '☀️';
 };
 
 export default function CurrentWeather({ data }) {
     if (!data) return null;
 
-    const backgroundClass = 'from-sky-300 to-sky-500'; // Selalu tema siang
+    // --- PERUBAHAN DI SINI ---
+    // Kelas latar belakang sekarang statis dan tidak akan berubah.
+    const backgroundClass = 'from-sky-300 to-sky-500';
 
     return (
         <div className={`bg-gradient-to-br ${backgroundClass} text-white p-6 rounded-2xl shadow-lg flex justify-between items-center transition-transform duration-300 hover:scale-[1.02]`}>
