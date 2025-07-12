@@ -2,7 +2,7 @@ import React from 'react';
 
 // Fungsi untuk memeriksa potensi cuaca ekstrem (tidak berubah)
 const getPeringatanDini = (prakiraan) => {
-    if (!prakiraan) return { icon: '✅', title: 'Aman', message: 'Data tidak tersedia.' };
+    if (!prakiraan) return { icon: '✅', title: 'Aman', message: 'Data tidak tersedia' };
     const prakiraan24Jam = prakiraan.slice(0, 24);
 
     const anginKencang = prakiraan24Jam.find(p => parseFloat(p.ws) > 25);
@@ -11,7 +11,7 @@ const getPeringatanDini = (prakiraan) => {
         return {
             icon: '💨',
             title: 'Angin Kencang',
-            message: `Potensi >25 km/jam pukul ${jam}:00.`,
+            message: `Potensi >25 km/jam pukul ${jam}:00`,
         };
     }
 
@@ -21,11 +21,11 @@ const getPeringatanDini = (prakiraan) => {
         return {
             icon: '⛈️',
             title: 'Hujan Petir',
-            message: `Potensi petir sekitar pukul ${jam}:00.`,
+            message: `Potensi petir sekitar pukul ${jam}:00`,
         };
     }
 
-    return { icon: '✅', title: 'Aman', message: 'Tidak ada potensi cuaca ekstrem.' };
+    return { icon: '✅', title: 'Aman', message: 'Tidak ada potensi cuaca ekstrem' };
 };
 
 export default function PeringatanDiniCard({ weatherData }) {

@@ -109,10 +109,10 @@ export default function WeatherDashboard() {
     
     const getWateringNeed = (prakiraan) => {
         const willRainSoon = prakiraan.slice(0, 4).some(p => parseInt(p.image) >= 60);
-        if (willRainSoon) return { value: "Rendah", desc: "Akan segera turun hujan." };
+        if (willRainSoon) return { value: "Rendah", desc: "Akan segera turun hujan" };
         const current = prakiraan[0];
-        if (parseInt(current.t) > 32 && parseInt(current.hu) < 75) return { value: "Tinggi", desc: "Cuaca panas dan kering." };
-        return { value: "Normal", desc: "Cek kelembapan tanah." };
+        if (parseInt(current.t) > 32 && parseInt(current.hu) < 75) return { value: "Tinggi", desc: "Cuaca panas dan kering" };
+        return { value: "Normal", desc: "Cek kelembapan tanah" };
     };
 
     const wateringNeed = getWateringNeed(hourlyWeatherData.prakiraan);

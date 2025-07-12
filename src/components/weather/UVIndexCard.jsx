@@ -57,7 +57,7 @@ export default function UVIndexCard({ weatherData }) {
                     <p className="text-lg font-semibold text-sky-100 -mt-1">{uvInfo.description}</p>
                 </div>
             </div>
-            <p className="text-xs text-sky-100 mt-1">Gunakan pelindung saat di luar ruangan.</p>
+            <p className="text-xs text-sky-100 mt-1">Gunakan pelindung saat di luar ruangan</p>
         </div>
     );
 }
