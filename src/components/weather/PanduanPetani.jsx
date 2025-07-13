@@ -78,6 +78,68 @@ const getPanduan = (weatherData, tanaman) => {
             });
         }
     }
+    // --- PANDUAN SPESIFIK UNTUK JAGUNG ---
+    else if (tanaman === 'jagung') {
+        if (akanPanasTerik) {
+            panduan.push({
+                prioritas: 1, icon: "🥵",
+                judul: "Waspada Stres Kekeringan",
+                isi: "Cuaca akan sangat panas. Pastikan penyiraman cukup, terutama pada fase pembungaan dan pengisian biji untuk mencegah gagal panen."
+            });
+        }
+        if (akanHujan) {
+            panduan.push({
+                prioritas: 1, icon: "🌧️",
+                judul: "Tunda Pemupukan",
+                isi: "Hujan akan datang. Tunda pemupukan nitrogen (Urea) untuk menghindari pencucian unsur hara yang sia-sia."
+            });
+        }
+        if (anginTenangSekarang && !akanHujan) {
+            panduan.push({
+                prioritas: 2, icon: "✅",
+                judul: "Waktu Ideal Penyerbukan",
+                isi: "Angin tenang sangat baik untuk proses penyerbukan alami. Hindari penyemprotan pestisida di pagi hari agar tidak mengganggu lebah."
+            });
+        }
+        if (lembapTinggiSekarang) {
+            panduan.push({
+                prioritas: 3, icon: "🍄",
+                judul: "Cegah Penyakit Bulai",
+                isi: "Kelembapan tinggi memicu penyakit bulai. Pastikan jarak tanam tidak terlalu rapat untuk sirkulasi udara yang baik. Pertimbangkan aplikasi fungisida."
+            });
+        }
+    }
+    // --- PANDUAN SPESIFIK UNTUK KEDELAI ---
+    else if (tanaman === 'kedelai') {
+        if (akanHujan) {
+            panduan.push({
+                prioritas: 1, icon: "⚠️",
+                judul: "Percepat Panen Jika Matang",
+                isi: "Prediksi hujan. Jika polong sudah menguning, segera panen untuk menghindari biji busuk dan berkualitas rendah."
+            });
+        }
+        if (lembapTinggiSekarang) {
+            panduan.push({
+                prioritas: 2, icon: "🐜",
+                judul: "Waspada Hama Penggerek Polong",
+                isi: "Kelembapan memicu aktivitas hama penggerek polong. Lakukan pemantauan intensif pada bunga dan polong muda."
+            });
+        }
+        if (akanPanasTerik) {
+            panduan.push({
+                prioritas: 2, icon: "💧",
+                judul: "Kritis! Siram Tanaman",
+                isi: "Fase pengisian polong sangat butuh air. Kekeringan pada cuaca panas akan menyebabkan polong hampa. Lakukan pengairan."
+            });
+        }
+        if (anginTenangSekarang && !akanHujan) {
+            panduan.push({
+                prioritas: 3, icon: "👍",
+                judul: "Efektif untuk Penyemprotan",
+                isi: "Kondisi ideal untuk aplikasi pupuk daun atau pestisida. Lakukan pada pagi atau sore hari untuk hasil maksimal."
+            });
+        }
+    }
 
     panduan.sort((a, b) => a.prioritas - b.prioritas);
     
@@ -118,6 +180,12 @@ export default function PanduanPetani({ weatherData }) {
                     </button>
                     <button onClick={() => setTanamanAktif('bawang')} className={getButtonClass('bawang')}>
                         Bawang Merah
+                    </button>
+                    <button onClick={() => setTanamanAktif('jagung')} className={getButtonClass('jagung')}>
+                        Jagung
+                    </button>
+                    <button onClick={() => setTanamanAktif('kedelai')} className={getButtonClass('kedelai')}>
+                        Kedelai
                     </button>
                 </div>
             </div>

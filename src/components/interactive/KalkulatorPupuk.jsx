@@ -12,6 +12,16 @@ const rekomendasi = {
         sp36: 200, // kg
         kcl: 150,  // kg
     },
+    jagung: {
+        urea: 350, // kg
+        sp36: 150, // kg
+        kcl: 100,  // kg
+    },
+    kedelai: {
+        urea: 50,  // kg
+        sp36: 100, // kg
+        kcl: 50,   // kg
+    },
 };
 
 export default function KalkulatorPupuk() {
@@ -53,6 +63,8 @@ export default function KalkulatorPupuk() {
                         >
                             <option value="padi">Padi</option>
                             <option value="bawang">Bawang Merah</option>
+                            <option value="jagung">Jagung</option>
+                            <option value="kedelai">Kedelai</option>
                         </select>
                     </div>
                     <div>
