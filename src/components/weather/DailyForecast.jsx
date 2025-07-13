@@ -42,6 +42,7 @@ export default function DailyForecast({ prakiraan }) {
             const hour = new Date(p.local_datetime).getHours();
             return hour >= 9 && hour < 18;
         });
+        // Jika tidak ada data siang, gunakan data paling awal sebagai acuan
         const dayWeather = dayTimeForecasts.find(p => p.local_datetime.includes('12:00')) || dayTimeForecasts[0] || dayForecast[0];
 
         // 2. Cari prakiraan representatif untuk MALAM HARI (jam 6 sore ke atas)
@@ -70,8 +71,9 @@ export default function DailyForecast({ prakiraan }) {
                         
                         <div className="w-1/3 text-center text-xl">
                             <span>{day.dayIcon}</span>
-                            {/* Tampilkan ikon malam HANYA jika ada datanya */}
-                            {day.nightIcon && (
+                            {/* --- PERUBAHAN UTAMA DI SINI --- */}
+                            {/* Ikon malam hanya ditampilkan jika ada DAN berbeda dari ikon siang */}
+                            {day.nightIcon && day.nightIcon !== day.dayIcon && (
                                 <>
                                     <span className="mx-1 text-white/80">/</span>
                                     <span>{day.nightIcon}</span>

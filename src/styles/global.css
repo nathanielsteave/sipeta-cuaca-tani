@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
 @layer base {
-    /* Transisi warna tidak lagi diperlukan */
-}
-
-/* --- PERUBAHAN DI SINI --- */
-.bg-day {
-    /* Gradien dari biru langit terang ke biru yang sedikit lebih pekat */
-    @apply bg-gradient-to-b from-sky-200 to-sky-400 text-neutral-800;
+    /* Menerapkan latar belakang gradien biru ke seluruh body halaman secara permanen */
+    body {
+        @apply bg-gradient-to-b from-sky-200 to-sky-400 text-neutral-800;
+    }
 }
 
 @layer utilities {

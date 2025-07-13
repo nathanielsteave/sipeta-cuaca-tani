@@ -117,7 +117,7 @@ export default function PanduanPetani({ weatherData }) {
                         Padi
                     </button>
                     <button onClick={() => setTanamanAktif('bawang')} className={getButtonClass('bawang')}>
-                        Bawang
+                        Bawang Merah
                     </button>
                 </div>
             </div>

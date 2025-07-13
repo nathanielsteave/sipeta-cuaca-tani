@@ -19,12 +19,9 @@ const getWeatherIcon = (weatherCode, local_datetime) => {
 export default function CurrentWeather({ data }) {
     if (!data) return null;
 
-    // --- PERUBAHAN DI SINI ---
-    // Kelas latar belakang sekarang statis dan tidak akan berubah.
-    const backgroundClass = 'from-sky-300 to-sky-500';
-
+    // Latar belakang diatur secara langsung dan statis di sini
     return (
-        <div className={`bg-gradient-to-br ${backgroundClass} text-white p-6 rounded-2xl shadow-lg flex justify-between items-center transition-transform duration-300 hover:scale-[1.02]`}>
+        <div className="bg-gradient-to-br from-sky-300 to-sky-500 text-white p-6 rounded-2xl shadow-lg flex justify-between items-center transition-transform duration-300 hover:scale-[1.02]">
             <div>
                 <p className="text-lg font-semibold capitalize">{data.weather_desc}</p>
                 <p className="text-7xl font-bold my-1">{data.t}°C</p>
