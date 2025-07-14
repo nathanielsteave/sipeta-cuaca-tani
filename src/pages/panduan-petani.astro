@@ -42,10 +42,15 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
               <li><strong>Waspada Trotol:</strong> Hujan memicu penyakit bercak ungu (trotol). Siapkan fungisida untuk aplikasi setelah hujan reda.</li>
               <li><strong>Buat Guludan:</strong> Jika baru tanam, tinggikan guludan untuk mencegah umbi terendam.</li>
             </ul>
+            <h4 class="font-bold text-lg text-yellow-700 mt-4 mb-2">Jagung</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Tunda Pemupukan (Urea):</strong> Hindari pemupukan Nitrogen untuk mencegah pencucian unsur hara yang sia-sia oleh air hujan.</li>
+              <li><strong>Waspada Penyakit Bulai:</strong> Kelembapan tinggi setelah hujan memicu jamur bulai. Pastikan drainase lahan baik agar tidak ada air tergenang.</li>
+            </ul>
           </Accordion>
           
           <Accordion title="Saat Prediksi Panas Terik" icon="☀️">
-             <h4 class="font-bold text-lg text-green-700 mb-2">Padi</h4>
+              <h4 class="font-bold text-lg text-green-700 mb-2">Padi</h4>
             <ul class="list-disc pl-5 space-y-1 text-sm">
               <li><strong>Jaga Level Air (Macak-macak):</strong> Pastikan sawah tergenang air setinggi 2-3 cm. Ini berfungsi untuk mendinginkan tanah, menjaga kelembapan, dan menekan pertumbuhan gulma.</li>
               <li><strong>Periksa Sumber Air:</strong> Pastikan pasokan air dari irigasi atau sumber lain cukup untuk beberapa hari ke depan karena penguapan akan sangat tinggi.</li>
@@ -55,6 +60,10 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
               <li><strong>Jadwal Siram Sore Hari:</strong> Lakukan penyiraman setelah pukul 16:00. Menyiram di siang hari akan membuat air cepat menguap dan berisiko membakar daun.</li>
               <li><strong>Cek Kelembapan Tanah:</strong> Sebelum menyiram, periksa tanah di kedalaman 5 cm. Jika masih terasa lembap, tunda penyiraman untuk menghindari busuk umbi.</li>
             </ul>
+            <h4 class="font-bold text-lg text-yellow-700 mt-4 mb-2">Jagung</h4>
+             <ul class="list-disc pl-5 space-y-1 text-sm">
+               <li><strong>Pastikan Penyiraman Cukup:</strong> Jaga kelembapan tanah untuk mencegah stres kekeringan, terutama pada fase kritis pembungaan dan pengisian biji.</li>
+             </ul>
           </Accordion>
 
           <Accordion title="Saat Angin Kencang (>15 km/jam)" icon="💨">
@@ -68,14 +77,20 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
                 <li><strong>TUNDA PENYEMPROTAN:</strong> Jangan menyemprot pestisida/pupuk daun, cairan tidak akan efektif dan terbuang sia-sia.</li>
                 <li><strong>Risiko Daun Rusak:</strong> Gesekan antar daun akibat angin dapat menyebabkan luka, yang menjadi pintu masuk bagi infeksi jamur.</li>
             </ul>
+            <h4 class="font-bold text-lg text-yellow-700 mt-4 mb-2">Jagung</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Risiko Roboh:</strong> Waspada tanaman roboh (lodging), terutama jika jagung sudah memasuki fase pertumbuhan tinggi.</li>
+                <li><strong>Tunda Penyemprotan:</strong> Sama seperti tanaman lain, hindari penyemprotan karena tidak akan efektif.</li>
+            </ul>
           </Accordion>
 
-           <Accordion title="Saat Cuaca Ideal (Cerah & Angin Tenang)" icon="✅">
-            <h4 class="font-bold text-lg text-green-700 mb-2">Padi & Bawang Merah</h4>
+            <Accordion title="Saat Cuaca Ideal (Cerah & Angin Tenang)" icon="✅">
+            <h4 class="font-bold text-lg text-green-700 mb-2">Padi, Bawang Merah, & Jagung</h4>
             <ul class="list-disc pl-5 space-y-1 text-sm">
               <li><strong>Waktu Emas Pemupukan:</strong> Penyerapan nutrisi, baik melalui akar maupun daun (pupuk cair), akan berada pada tingkat paling maksimal.</li>
-               <li><strong>Aplikasi Pestisida Efektif:</strong> Semprotan akan menempel sempurna dan bekerja lebih lama tanpa gangguan hujan atau angin.</li>
-               <li><strong>Penyiangan Gulma:</strong> Mencabut gulma pada kondisi ini akan membuat sisa akarnya cepat kering dan mati.</li>
+              <li><strong>Aplikasi Pestisida Efektif:</strong> Semprotan akan menempel sempurna dan bekerja lebih lama tanpa gangguan hujan atau angin.</li>
+              <li><strong>Penyiangan Gulma:</strong> Mencabut gulma pada kondisi ini akan membuat sisa akarnya cepat kering dan mati.</li>
+              <li><strong>Khusus Jagung:</strong> Kondisi ini sangat ideal untuk penyerbukan alami. Hindari penyemprotan yang dapat mengganggu serangga polinator seperti lebah.</li>
             </ul>
           </Accordion>
         </div>
@@ -85,7 +100,7 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
         <h2 class="text-2xl font-bold mb-4 text-center text-black">📚 Panduan Umum Pertanian</h2>
         <div class="space-y-4">
           <h3 class="font-bold text-xl text-black mt-6 border-b-2 border-primary-200 pb-2">Berdasarkan Fase Tanaman</h3>
-           <Accordion title="Persiapan Lahan" icon="🚜">
+            <Accordion title="Persiapan Lahan" icon="🚜">
             <p class="mb-2">Fase fondasi yang menentukan 80% keberhasilan. Fokus pada tanah yang gembur dan kaya nutrisi.</p>
             <ul class="list-disc pl-5 space-y-1 text-sm">
               {/* --- PERBAIKAN DI SINI --- */}
@@ -103,13 +118,13 @@ const weatherData: WeatherData | null = await getWeatherForBagorKulon();
                 <li><strong>Pengairan Awal:</strong> Segera siram secukupnya setelah tanam untuk membantu bibit beradaptasi dan agar tanah memadat di sekitar akar.</li>
             </ul>
           </Accordion>
-           <Accordion title="Panen & Pasca-Panen" icon="🌾">
+            <Accordion title="Panen & Pasca-Panen" icon="🌾">
             <p class="mb-2">Kualitas hasil panen sangat ditentukan oleh penanganan pada fase krusial ini.</p>
             <ul class="list-disc pl-5 space-y-1 text-sm">
               <li><strong>Tentukan Kematangan Optimal:</strong> Untuk padi, panen saat 90% bulir di malai sudah menguning. Untuk bawang, saat 80-90% daun sudah rebah secara alami.</li>
               <li><strong>Waktu Panen:</strong> Lakukan panen pada pagi hari yang cerah setelah embun kering untuk mendapatkan kadar air terendah.</li>
               <li><strong>Pengeringan:</strong> Jemur hasil panen di atas terpal, bukan langsung di tanah. Untuk bawang, lakukan pengeringan awal bersama daunnya selama 7-14 hari hingga leher umbi mengeras.</li>
-               <li><strong>Penyimpanan:</strong> Simpan di tempat yang kering, sejuk, dan memiliki sirkulasi udara yang baik. Gantung bawang atau gunakan rak untuk mencegah tumpukan.</li>
+              <li><strong>Penyimpanan:</strong> Simpan di tempat yang kering, sejuk, dan memiliki sirkulasi udara yang baik. Gantung bawang atau gunakan rak untuk mencegah tumpukan.</li>
             </ul>
           </Accordion>
         </div>
