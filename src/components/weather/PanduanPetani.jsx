@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// --- LOGIKA BARU DENGAN PANDUAN SPESIFIK TANAMAN ---
+// --- LOGIKA PANDUAN DENGAN JAGUNG DISERTAKAN KEMBALI ---
 const getPanduan = (weatherData, tanaman) => {
     let panduan = [];
     if (!weatherData?.prakiraan?.length) {
@@ -109,37 +109,6 @@ const getPanduan = (weatherData, tanaman) => {
             });
         }
     }
-    // --- PANDUAN SPESIFIK UNTUK KEDELAI ---
-    else if (tanaman === 'kedelai') {
-        if (akanHujan) {
-            panduan.push({
-                prioritas: 1, icon: "⚠️",
-                judul: "Percepat Panen Jika Matang",
-                isi: "Prediksi hujan. Jika polong sudah menguning, segera panen untuk menghindari biji busuk dan berkualitas rendah."
-            });
-        }
-        if (lembapTinggiSekarang) {
-            panduan.push({
-                prioritas: 2, icon: "🐜",
-                judul: "Waspada Hama Penggerek Polong",
-                isi: "Kelembapan memicu aktivitas hama penggerek polong. Lakukan pemantauan intensif pada bunga dan polong muda."
-            });
-        }
-        if (akanPanasTerik) {
-            panduan.push({
-                prioritas: 2, icon: "💧",
-                judul: "Kritis! Siram Tanaman",
-                isi: "Fase pengisian polong sangat butuh air. Kekeringan pada cuaca panas akan menyebabkan polong hampa. Lakukan pengairan."
-            });
-        }
-        if (anginTenangSekarang && !akanHujan) {
-            panduan.push({
-                prioritas: 3, icon: "👍",
-                judul: "Efektif untuk Penyemprotan",
-                isi: "Kondisi ideal untuk aplikasi pupuk daun atau pestisida. Lakukan pada pagi atau sore hari untuk hasil maksimal."
-            });
-        }
-    }
 
     panduan.sort((a, b) => a.prioritas - b.prioritas);
     
@@ -171,24 +140,22 @@ export default function PanduanPetani({ weatherData }) {
     }
 
     return (
-        <div className="bg-gradient-to-br from-sky-300 to-sky-500 p-6 rounded-2xl shadow-lg h-full transition-transform duration-300 hover:scale-105">
-            <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold text-white">Panduan Tani Cerdas</h3>
-                <div className="flex items-center gap-2 bg-sky-900/20 p-1 rounded-full">
-                    <button onClick={() => setTanamanAktif('padi')} className={getButtonClass('padi')}>
-                        Padi
-                    </button>
-                    <button onClick={() => setTanamanAktif('bawang')} className={getButtonClass('bawang')}>
-                        Bawang Merah
-                    </button>
-                    <button onClick={() => setTanamanAktif('jagung')} className={getButtonClass('jagung')}>
-                        Jagung
-                    </button>
-                    <button onClick={() => setTanamanAktif('kedelai')} className={getButtonClass('kedelai')}>
-                        Kedelai
-                    </button>
-                </div>
+        <div className="bg-gradient-to-br from-sky-300 to-sky-500 p-6 rounded-2xl shadow-lg h-full transition-transform duration-300 hover:scale-105 flex flex-col">
+            <h3 className="text-xl font-bold text-white">Panduan Tani Cerdas</h3>
+            
+            <div className="flex flex-wrap items-center gap-2 my-4">
+                <button onClick={() => setTanamanAktif('padi')} className={getButtonClass('padi')}>
+                    Padi
+                </button>
+                <button onClick={() => setTanamanAktif('bawang')} className={getButtonClass('bawang')}>
+                    Bawang Merah
+                </button>
+                {/* --- TOMBOL JAGUNG DITAMBAHKAN KEMBALI --- */}
+                <button onClick={() => setTanamanAktif('jagung')} className={getButtonClass('jagung')}>
+                    Jagung
+                </button>
             </div>
+            
             <div className="space-y-3">
                 {panduanList.map((p, index) => (
                     <div key={index} className="flex items-start gap-4 p-3 bg-sky-400/50 rounded-lg">
