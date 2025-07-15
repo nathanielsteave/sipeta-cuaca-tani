@@ -81,13 +81,57 @@ const penyakitBawang = [
         gejala: "Bercak putih pada daun yang meluas dan menyebabkan daun seperti tersiram air panas, lalu patah.",
         penanganan: "Kurangi kelembapan dengan jarak tanam yang lebar. Gunakan fungisida sistemik berbahan aktif Difenokonazol."
     }
-]
+];
+
+// --- DATA HAMA JAGUNG ---
+const hamaJagung = [
+    {
+        nama: "Ulat Grayak (Spodoptera frugiperda)",
+        gambar: "/ulat-grayak-jagung.jpg",
+        gejala: "Daun berlubang dan compang-camping, terutama pada bagian pucuk. Pada serangan berat, dapat menyerang tongkol.",
+        penanganan: "Gunakan insektisida berbahan aktif Emamektin Benzoat atau Spinetoram. Lakukan pemantauan sejak dini."
+    },
+    {
+        nama: "Penggerek Batang (Ostrinia furnacalis)",
+        gambar: "/penggerek-batang-jagung.jpg",
+        gejala: "Terdapat lubang gerekan pada batang, seringkali disertai serbuk sisa gerekan. Tanaman menjadi mudah patah.",
+        penanganan: "Lakukan pergiliran tanaman. Gunakan insektisida sistemik berbahan aktif Fipronil atau Furadan pada pucuk tanaman."
+    },
+     {
+        nama: "Penggerek Tongkol (Helicoverpa armigera)",
+        gambar: "/penggerek-tongkol-jagung.jpg",
+        gejala: "Ulat ditemukan di ujung tongkol, memakan biji dan rambut jagung. Biji menjadi rusak dan berjamur.",
+        penanganan: "Semprot dengan insektisida kontak pada saat rambut jagung mulai muncul. Manfaatkan musuh alami seperti Trichogramma sp."
+    }
+];
+
+// --- DATA PENYAKIT JAGUNG ---
+const penyakitJagung = [
+    {
+        nama: "Penyakit Bulai (Downy Mildew)",
+        gambar: "/penyakit-bulai.webp",
+        gejala: "Garis-garis kuning sejajar tulang daun, terutama pada daun muda. Pertumbuhan kerdil dan seringkali tidak membentuk tongkol.",
+        penanganan: "Gunakan varietas tahan. Lakukan seed treatment dengan fungisida Metalaksil. Cabut dan musnahkan tanaman yang terinfeksi."
+    },
+    {
+        nama: "Hawar Daun (Leaf Blight)",
+        gambar: "/hawar-daun-jagung.webp",
+        gejala: "Bercak oval berwarna coklat keabu-abuan atau coklat pada daun, dimulai dari daun bawah.",
+        penanganan: "Gunakan varietas tahan. Jaga kebersihan lahan dari sisa tanaman. Semprot fungisida dengan bahan aktif Mankozeb."
+    },
+    {
+        nama: "Karat Daun (Rust)",
+        gambar: "/karat-daun.jpg",
+        gejala: "Terdapat bintik-bintik (pustul) kecil berwarna coklat kemerahan seperti karat pada permukaan daun.",
+        penanganan: "Tanam varietas yang tahan. Atur jarak tanam agar tidak terlalu rapat untuk mengurangi kelembapan. Gunakan fungisida jika serangan parah."
+    }
+];
 ---
 <Layout title="Hama & Penyakit - SiPETA Cuaca Tani">
     <div class="max-w-5xl mx-auto p-4 sm:p-6 space-y-8">
         <header class="fade-in text-center">
             <h1 class="text-4xl font-extrabold text-black">Kenali Hama & Penyakit Utama</h1>
-            <p class="text-black mt-2">Identifikasi dan cara penanganan hama & penyakit pada tanaman padi dan bawang merah.</p>
+            <p class="text-black mt-2">Identifikasi dan cara penanganan hama & penyakit pada tanaman padi, bawang merah, dan jagung.</p>
         </header>
 
         <main class="space-y-12">
@@ -97,7 +141,7 @@ const penyakitBawang = [
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     {hamaPadi.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
                             <div class="p-4">
                                 <h4 class="font-bold text-lg text-black">{item.nama}</h4>
                                 <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
@@ -110,7 +154,7 @@ const penyakitBawang = [
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {penyakitPadi.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
                             <div class="p-4">
                                 <h4 class="font-bold text-lg text-black">{item.nama}</h4>
                                 <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
@@ -127,7 +171,7 @@ const penyakitBawang = [
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     {hamaBawang.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
                             <div class="p-4">
                                 <h4 class="font-bold text-lg text-black">{item.nama}</h4>
                                 <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
@@ -140,7 +184,37 @@ const penyakitBawang = [
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {penyakitBawang.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-                            <img src={item.gambar} alt={item.nama} class="w-full h-48 object-cover"/>
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-yellow-600 mb-2">🌽 Tanaman Jagung</h2>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-yellow-600 pl-3">Hama</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {hamaJagung.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                 <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-yellow-600 pl-3">Penyakit</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {penyakitJagung.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
                             <div class="p-4">
                                 <h4 class="font-bold text-lg text-black">{item.nama}</h4>
                                 <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
