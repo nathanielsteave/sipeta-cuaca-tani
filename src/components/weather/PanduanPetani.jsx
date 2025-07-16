@@ -6,7 +6,7 @@ const getPanduan = (weatherData, tanaman) => {
     if (!weatherData?.prakiraan?.length) {
         return panduan;
     }
-    
+
     const prakiraanSaatIni = weatherData.prakiraan[0];
     const prakiraanNanti = weatherData.prakiraan.slice(1, 4);
 
@@ -19,62 +19,62 @@ const getPanduan = (weatherData, tanaman) => {
     // --- PANDUAN SPESIFIK UNTUK PADI ---
     if (tanaman === 'padi') {
         if (akanAnginKencang && akanPanasTerik) {
-            panduan.push({ 
-                prioritas: 1, icon: "💨", 
-                judul: "Waspada Ledakan Wereng", 
-                isi: "Kombinasi angin panas sangat disukai wereng. Pantau pangkal batang. Jika populasi tinggi, semprot insektisida sore hari." 
+            panduan.push({
+                prioritas: 1, icon: "💨",
+                judul: "Waspada Ledakan Wereng",
+                isi: "Kombinasi angin panas sangat disukai wereng. Pantau pangkal batang. Jika populasi tinggi, semprot insektisida sore hari."
             });
         }
         if (akanHujan) {
-            panduan.push({ 
-                prioritas: 1, icon: "🌧️", 
-                judul: "Jaga Sirkulasi Air", 
-                isi: "Hujan akan datang. Pastikan saluran drainase lancar untuk mencegah air tergenang terlalu lama yang dapat menyebabkan busuk akar." 
+            panduan.push({
+                prioritas: 1, icon: "🌧️",
+                judul: "Jaga Sirkulasi Air",
+                isi: "Hujan akan datang. Pastikan saluran drainase lancar untuk mencegah air tergenang terlalu lama yang dapat menyebabkan busuk akar."
             });
         }
         if (anginTenangSekarang && !akanHujan) {
-             panduan.push({ 
-                prioritas: 2, icon: "✅", 
-                judul: "Waktu Terbaik Pemupukan", 
-                isi: "Cuaca ideal untuk pemupukan daun atau penyemprotan. Nutrisi akan terserap maksimal tanpa gangguan angin atau hujan." 
+            panduan.push({
+                prioritas: 2, icon: "✅",
+                judul: "Waktu Terbaik Pemupukan",
+                isi: "Cuaca ideal untuk pemupukan daun atau penyemprotan. Nutrisi akan terserap maksimal tanpa gangguan angin atau hujan."
             });
         }
         if (lembapTinggiSekarang) {
-             panduan.push({
-                prioritas: 3, icon: "🍄", 
-                judul: "Cegah Jamur & Kresek", 
+            panduan.push({
+                prioritas: 3, icon: "🍄",
+                judul: "Cegah Jamur & Kresek",
                 isi: "Kelembapan tinggi memicu hawar pelepah dan bakteri kresek. Jaga sawah tetap bersih dari gulma untuk sirkulasi udara."
             });
         }
-    } 
+    }
     // --- PANDUAN SPESIFIK UNTUK BAWANG MERAH ---
     else if (tanaman === 'bawang') {
         if (akanHujan) {
-            panduan.push({ 
-                prioritas: 1, icon: "⚠️", 
-                judul: "KRITIS: Amankan Panen!", 
-                isi: "Ada prediksi hujan! Jika bawang siap panen, segera cabut sekarang juga. Umbi bisa busuk jika terlanjur basah di tanah." 
+            panduan.push({
+                prioritas: 1, icon: "⚠️",
+                judul: "KRITIS: Amankan Panen!",
+                isi: "Ada prediksi hujan! Jika bawang siap panen, segera cabut sekarang juga. Umbi bisa busuk jika terlanjur basah di tanah."
             });
         }
         if (lembapTinggiSekarang) {
-            panduan.push({ 
-                prioritas: 1, icon: "🐛", 
-                judul: "Waspada Layu & Trotol", 
-                isi: "Kelembapan ekstrem adalah pemicu utama jamur layu (Fusarium) dan bercak ungu (Trotol). Periksa daun dan umbi dengan teliti." 
+            panduan.push({
+                prioritas: 1, icon: "🐛",
+                judul: "Waspada Layu & Trotol",
+                isi: "Kelembapan ekstrem adalah pemicu utama jamur layu (Fusarium) dan bercak ungu (Trotol). Periksa daun dan umbi dengan teliti."
             });
         }
         if (akanPanasTerik) {
-             panduan.push({ 
-                prioritas: 2, icon: "☀️", 
-                judul: "Siram di Sore Hari", 
-                isi: "Cuaca akan sangat panas. Siram secukupnya setelah jam 4 sore untuk mendinginkan tanah tanpa membuat daun gosong." 
+            panduan.push({
+                prioritas: 2, icon: "☀️",
+                judul: "Siram di Sore Hari",
+                isi: "Cuaca akan sangat panas. Siram secukupnya setelah jam 4 sore untuk mendinginkan tanah tanpa membuat daun gosong."
             });
         }
         if (anginTenangSekarang && !akanHujan) {
-             panduan.push({ 
-                prioritas: 2, icon: "👍", 
-                judul: "Jendela Perawatan Terbuka", 
-                isi: "Kondisi sempurna untuk penyiangan gulma, pemupukan susulan, atau aplikasi pestisida/fungisida karena akan sangat efektif." 
+            panduan.push({
+                prioritas: 2, icon: "👍",
+                judul: "Jendela Perawatan Terbuka",
+                isi: "Kondisi sempurna untuk penyiangan gulma, pemupukan susulan, atau aplikasi pestisida/fungisida karena akan sangat efektif."
             });
         }
     }
@@ -110,8 +110,40 @@ const getPanduan = (weatherData, tanaman) => {
         }
     }
 
+    // --- PANDUAN SPESIFIK UNTUK KEDELAI ---
+    else if (tanaman === 'kedelai') {
+        if (akanPanasTerik) {
+            panduan.push({
+                prioritas: 1, icon: "🥵",
+                judul: "Waspada Kekeringan",
+                isi: "Cuaca akan sangat panas. Pastikan pengairan cukup, terutama fase pembungaan dan pengisian polong untuk mencegah kegagalan panen."
+            });
+        }
+        if (akanHujan) {
+            panduan.push({
+                prioritas: 1, icon: "🌧️",
+                judul: "Perbaiki Drainase",
+                isi: "Curah hujan tinggi berisiko menyebabkan busuk polong dan menurunkan kualitas biji. Pastikan saluran air lancar."
+            });
+        }
+        if (anginTenangSekarang && !akanHujan) {
+            panduan.push({
+                prioritas: 2, icon: "✅",
+                judul: "Waktu Ideal Perawatan",
+                isi: "Kondisi ideal untuk penyiangan gulma atau penyemprotan pestisida/fungisida karena akan lebih efektif."
+            });
+        }
+        if (lembapTinggiSekarang) {
+            panduan.push({
+                prioritas: 3, icon: "🍄",
+                judul: "Cegah Karat Daun & Antraknosa",
+                isi: "Kelembapan tinggi memicu perkembangan penyakit jamur. Pantau daun dan batang secara berkala, pertimbangkan aplikasi fungisida jika perlu."
+            });
+        }
+    }
+
     panduan.sort((a, b) => a.prioritas - b.prioritas);
-    
+
     if (panduan.length === 0) {
         panduan.push({
             icon: "🧐",
@@ -130,7 +162,7 @@ export default function PanduanPetani({ weatherData }) {
     if (!weatherData) return null;
 
     const panduanList = getPanduan(weatherData, tanamanAktif);
-    
+
     const getButtonClass = (tanaman) => {
         const baseClass = "px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300";
         if (tanaman === tanamanAktif) {
@@ -142,7 +174,7 @@ export default function PanduanPetani({ weatherData }) {
     return (
         <div className="bg-gradient-to-br from-sky-300 to-sky-500 p-6 rounded-2xl shadow-lg h-full transition-transform duration-300 hover:scale-105 flex flex-col">
             <h3 className="text-xl font-bold text-white">Panduan Tani Cerdas</h3>
-            
+
             <div className="flex flex-wrap items-center gap-2 my-4">
                 <button onClick={() => setTanamanAktif('padi')} className={getButtonClass('padi')}>
                     Padi
@@ -150,12 +182,15 @@ export default function PanduanPetani({ weatherData }) {
                 <button onClick={() => setTanamanAktif('bawang')} className={getButtonClass('bawang')}>
                     Bawang Merah
                 </button>
-                {/* --- TOMBOL JAGUNG DITAMBAHKAN KEMBALI --- */}
                 <button onClick={() => setTanamanAktif('jagung')} className={getButtonClass('jagung')}>
                     Jagung
                 </button>
+                {/* --- TOMBOL KEDELAI DITAMBAHKAN --- */}
+                <button onClick={() => setTanamanAktif('kedelai')} className={getButtonClass('kedelai')}>
+                    Kedelai
+                </button>
             </div>
-            
+
             <div className="space-y-3">
                 {panduanList.map((p, index) => (
                     <div key={index} className="flex items-start gap-4 p-3 bg-sky-400/50 rounded-lg">

@@ -17,12 +17,17 @@ const rekomendasi = {
         sp36: 150, // kg
         kcl: 100,  // kg
     },
+    // --- PENAMBAHAN TANAMAN KEDELAI ---
+    kedelai: {
+        urea: 75,  // kg 
+        sp36: 75,  // kg
+        kcl: 100,  // kg
+    },
 };
 
 export default function KalkulatorPupuk() {
-    // --- PERUBAHAN DI SINI ---
-    const [luas, setLuas] = useState(1); // Default diubah menjadi 1
-    const [satuan, setSatuan] = useState('hektar'); // Default diubah menjadi hektar
+    const [luas, setLuas] = useState(1);
+    const [satuan, setSatuan] = useState('hektar');
     const [tanaman, setTanaman] = useState('padi');
 
     const luasDalamHektar = useMemo(() => {
@@ -59,6 +64,8 @@ export default function KalkulatorPupuk() {
                             <option value="padi">Padi</option>
                             <option value="bawang">Bawang Merah</option>
                             <option value="jagung">Jagung</option>
+                            {/* --- PENAMBAHAN OPSI KEDELAI --- */}
+                            <option value="kedelai">Kedelai</option>
                         </select>
                     </div>
                     <div>

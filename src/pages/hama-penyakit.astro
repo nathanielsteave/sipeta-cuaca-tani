@@ -21,7 +21,7 @@ const hamaPadi = [
         gejala: "Batang padi terpotong di bagian pangkal, seringkali tidak putus. Kerusakan biasanya terjadi di tengah petakan.",
         penanganan: "Lakukan gropyokan massal sebelum tanam. Pasang umpan beracun atau perangkap. Jaga sanitasi sawah agar tidak menjadi sarang."
     },
-     {
+    {
         nama: "Walang Sangit",
         gambar: "/walang-sangit.png",
         gejala: "Menyerang bulir padi saat fase pengisian, menyebabkan bulir menjadi hampa atau berkualitas buruk. Mengeluarkan bau yang khas.",
@@ -63,7 +63,7 @@ const hamaBawang = [
 
 // --- DATA PENYAKIT BAWANG MERAH ---
 const penyakitBawang = [
-     {
+    {
         nama: "Layu Fusarium",
         gambar: "/layu-fusarium.jpg",
         gejala: "Daun menguning, terkulai, dan pangkal batang membusuk. Tanaman mudah dicabut karena akar rusak.",
@@ -97,7 +97,7 @@ const hamaJagung = [
         gejala: "Terdapat lubang gerekan pada batang, seringkali disertai serbuk sisa gerekan. Tanaman menjadi mudah patah.",
         penanganan: "Lakukan pergiliran tanaman. Gunakan insektisida sistemik berbahan aktif Fipronil atau Furadan pada pucuk tanaman."
     },
-     {
+    {
         nama: "Penggerek Tongkol (Helicoverpa armigera)",
         gambar: "/penggerek-tongkol-jagung.jpg",
         gejala: "Ulat ditemukan di ujung tongkol, memakan biji dan rambut jagung. Biji menjadi rusak dan berjamur.",
@@ -126,12 +126,57 @@ const penyakitJagung = [
         penanganan: "Tanam varietas yang tahan. Atur jarak tanam agar tidak terlalu rapat untuk mengurangi kelembapan. Gunakan fungisida jika serangan parah."
     }
 ];
+
+// --- DATA HAMA KEDELAI ---
+const hamaKedelai = [
+    {
+        nama: "Lalat Bibit (Ophiomyia phaseoli)",
+        gambar: "/lalat-bibit.png", // Ganti dengan path gambar yang sesuai
+        gejala: "Menyerang tanaman pada fase awal pertumbuhan. Gejala berupa bintik-bintik putih pada keping biji dan daun pertama, serta garis-garis putih pada daun bibit. Serangan berat menyebabkan tanaman layu hingga mati.",
+        penanganan: "Lakukan penanaman serentak. Gunakan perlakuan benih dengan insektisida sistemik atau lakukan penyemprotan jika ditemukan gejala awal."
+    },
+    {
+        nama: "Ulat Grayak (Spodoptera litura)",
+        gambar: "/ulat-grayak-kedelai.jpg", // Ganti dengan path gambar yang sesuai
+        gejala: "Daun berlubang-lubang, pada serangan berat hanya menyisakan tulang daun. Dapat juga menyerang polong muda.",
+        penanganan: "Kumpulkan kelompok telur dan ulat secara mekanis. Gunakan insektisida hayati Bacillus thuringiensis atau insektisida kimia jika populasi tinggi."
+    },
+    {
+        nama: "Penggerek Polong (Etiella zinckenella)",
+        gambar: "/penggerek-polong.jpeg", // Ganti dengan path gambar yang sesuai
+        gejala: "Terdapat lubang kecil pada kulit polong. Larva masuk ke dalam polong dan memakan biji, menyebabkan biji rusak, busuk, dan penurunan hasil panen.",
+        penanganan: "Tanam serempak dan lakukan rotasi tanaman. Semprotkan insektisida kontak saat fase pembentukan polong untuk mencegah larva masuk."
+    },
+    {
+        nama: "Kepik Hijau (Nezara viridula)",
+        gambar: "/kepik-hijau.jpg", // Ganti dengan path gambar yang sesuai
+        gejala: "Menghisap cairan polong dan biji. Menyebabkan polong menjadi kempis, keriput, dan biji menjadi hitam atau busuk. Menurunkan kualitas dan kuantitas hasil.",
+        penanganan: "Lakukan sanitasi gulma yang bisa menjadi inang. Lakukan penyemprotan insektisida pada pagi atau sore hari saat kepik aktif."
+    }
+];
+
+// --- DATA PENYAKIT KEDELAI ---
+const penyakitKedelai = [
+    {
+        nama: "Karat Daun (Phakopsora pachyrhizi)",
+        gambar: "/karat-daun-kedelai.jpg", // Ganti dengan path gambar yang sesuai
+        gejala: "Muncul bercak kecil berwarna coklat kemerahan (seperti karat) pada permukaan daun, terutama daun bagian bawah. Serangan berat menyebabkan daun mengering dan rontok prematur, menghambat pengisian biji.",
+        penanganan: "Gunakan varietas tahan. Tanam dengan jarak tanam tidak terlalu rapat untuk sirkulasi udara yang baik. Aplikasikan fungisida berbahan aktif mankozeb atau propikonazol jika serangan terdeteksi dini."
+    },
+    {
+        nama: "Antraknosa (Colletotrichum spp.)",
+        gambar: "/antraknosa-kedelai.jpeg", // Ganti dengan path gambar yang sesuai
+        gejala: "Dapat menyerang batang, daun, dan polong. Gejala berupa bercak tidak beraturan berwarna coklat tua hingga hitam. Pada polong, dapat menyebabkan polong busuk dan biji menjadi keriput serta berkualitas rendah.",
+        penanganan: "Gunakan benih yang sehat dan bebas penyakit. Lakukan rotasi tanaman. Perbaiki drainase lahan dan gunakan fungisida jika diperlukan."
+    }
+];
 ---
+
 <Layout title="Hama & Penyakit - SiPETA Cuaca Tani">
     <div class="max-w-5xl mx-auto p-4 sm:p-6 space-y-8">
         <header class="fade-in text-center">
             <h1 class="text-4xl font-extrabold text-black">Kenali Hama & Penyakit Utama</h1>
-            <p class="text-black mt-2">Identifikasi dan cara penanganan hama & penyakit pada tanaman padi, bawang merah, dan jagung.</p>
+            <p class="text-black mt-2">Identifikasi dan cara penanganan hama & penyakit pada tanaman padi, bawang merah, jagung, dan kedelai.</p>
         </header>
 
         <main class="space-y-12">
@@ -180,8 +225,8 @@ const penyakitJagung = [
                         </div>
                     ))}
                 </div>
-                 <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-red-800 pl-3">Penyakit</h3>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-red-800 pl-3">Penyakit</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {penyakitBawang.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                             <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
@@ -210,8 +255,8 @@ const penyakitJagung = [
                         </div>
                     ))}
                 </div>
-                 <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-yellow-600 pl-3">Penyakit</h3>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-yellow-600 pl-3">Penyakit</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {penyakitJagung.map(item => (
                         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                             <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
@@ -224,6 +269,37 @@ const penyakitJagung = [
                     ))}
                 </div>
             </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-lime-800 mb-2">🌱 Tanaman Kedelai</h2>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-lime-800 pl-3">Hama</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {hamaKedelai.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-700 mb-4 border-l-4 border-lime-800 pl-3">Penyakit</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {penyakitKedelai.map(item => (
+                        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                            <img src={item.gambar} alt={item.nama} class="w-full h-96 object-cover"/>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-black">{item.nama}</h4>
+                                <p class="text-xs text-black mt-2"><strong>Gejala:</strong> {item.gejala}</p>
+                                <p class="text-xs text-black mt-2"><strong>Penanganan:</strong> {item.penanganan}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
         </main>
         <p class="text-center text-xs text-neutral-500 pt-4"><strong>Catatan:</strong> Gambar yang ditampilkan adalah ilustrasi. Untuk hasil identifikasi yang akurat, konsultasikan dengan Petugas Penyuluh Lapangan (PPL) setempat.</p>
     </div>
