@@ -142,6 +142,40 @@ const getPanduan = (weatherData, tanaman) => {
         }
     }
 
+    else if (tanaman === 'melon') {
+        if (akanPanasTerik) {
+            panduan.push({
+                prioritas: 1, icon: "🥵",
+                judul: "Penyiraman Intensif",
+                isi: "Cuaca panas akan meningkatkan penguapan. Pastikan tanaman melon mendapatkan cukup air, terutama saat pembentukan buah."
+            });
+        }
+        if (akanHujan) {
+            panduan.push({
+                prioritas: 1, icon: "🌧️",
+                judul: "Waspada Jamur Daun",
+                isi: "Hujan dapat memicu penyakit embun tepung (powdery mildew). Siapkan fungisida dan perbaiki sirkulasi udara di sekitar tanaman."
+            });
+        }
+    }
+
+    else if (tanaman === 'semangka') {
+        if (akanPanasTerik) {
+            panduan.push({
+                prioritas: 1, icon: "🥵",
+                judul: "Jaga Kelembapan Tanah",
+                isi: "Semangka membutuhkan banyak air saat cuaca panas. Lakukan penyiraman secara teratur untuk mencegah buah pecah."
+            });
+        }
+        if (akanHujan) {
+            panduan.push({
+                prioritas: 1, icon: "🌧️",
+                judul: "Cegah Busuk Buah",
+                isi: "Hujan berlebih dapat menyebabkan busuk buah. Pastikan drainase baik dan beri alas pada buah agar tidak langsung menyentuh tanah basah."
+            });
+        }
+    }
+
     panduan.sort((a, b) => a.prioritas - b.prioritas);
 
     if (panduan.length === 0) {
@@ -185,9 +219,15 @@ export default function PanduanPetani({ weatherData }) {
                 <button onClick={() => setTanamanAktif('jagung')} className={getButtonClass('jagung')}>
                     Jagung
                 </button>
-                {/* --- TOMBOL KEDELAI DITAMBAHKAN --- */}
                 <button onClick={() => setTanamanAktif('kedelai')} className={getButtonClass('kedelai')}>
                     Kedelai
+                </button>
+                {/* --- TOMBOL MELON DAN SEMANGKA DITAMBAHKAN --- */}
+                <button onClick={() => setTanamanAktif('melon')} className={getButtonClass('melon')}>
+                    Melon
+                </button>
+                <button onClick={() => setTanamanAktif('semangka')} className={getButtonClass('semangka')}>
+                    Semangka
                 </button>
             </div>
 

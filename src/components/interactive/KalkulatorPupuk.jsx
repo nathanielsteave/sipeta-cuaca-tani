@@ -1,28 +1,47 @@
 import React, { useState, useMemo } from 'react';
 
-// Rekomendasi dosis umum per hektar (10.000 m²)
+// Rekomendasi dosis umum per hektar (10.000 m²) - DOSIS TELAH DISESUAIKAN
 const rekomendasi = {
     padi: {
-        urea: 250, // kg
-        sp36: 100, // kg
-        kcl: 75,   // kg
+        urea: 300, // kg
+        sp36: 150, // kg
+        kcl: 100,   // kg
+        phonska: 300, // kg (sebagai alternatif/tambahan)
     },
     bawang: {
-        urea: 150, // kg
-        sp36: 200, // kg
-        kcl: 150,  // kg
+        urea: 200, // kg
+        sp36: 300, // kg
+        kcl: 200,  // kg
+        za: 300,   // kg
+        phonska: 400, // kg
+        npk16: 250, // kg
     },
     jagung: {
-        urea: 350, // kg
-        sp36: 150, // kg
-        kcl: 100,  // kg
+        urea: 400, // kg
+        sp36: 200, // kg
+        kcl: 150,  // kg
+        phonska: 300, // kg
     },
-    // --- PENAMBAHAN TANAMAN KEDELAI ---
     kedelai: {
-        urea: 75,  // kg 
-        sp36: 75,  // kg
-        kcl: 100,  // kg
+        urea: 100,  // kg
+        sp36: 150,  // kg
+        kcl: 150,   // kg
+        phonska: 250, //kg
     },
+    melon: {
+        urea: 150,
+        sp36: 200,
+        kcl: 200,
+        npk16: 300,
+        za: 100,
+    },
+    semangka: {
+        urea: 150,
+        sp36: 200,
+        kcl: 200,
+        npk16: 300,
+        za: 100,
+    }
 };
 
 export default function KalkulatorPupuk() {
@@ -42,11 +61,11 @@ export default function KalkulatorPupuk() {
 
     const hasil = useMemo(() => {
         const dosis = rekomendasi[tanaman];
-        return {
-            urea: (dosis.urea * luasDalamHektar).toFixed(2),
-            sp36: (dosis.sp36 * luasDalamHektar).toFixed(2),
-            kcl: (dosis.kcl * luasDalamHektar).toFixed(2),
+        const hasilKalkulasi = {};
+        for (const pupuk in dosis) {
+            hasilKalkulasi[pupuk] = (dosis[pupuk] * luasDalamHektar).toFixed(2);
         }
+        return hasilKalkulasi;
     }, [luasDalamHektar, tanaman]);
 
     return (
@@ -64,14 +83,15 @@ export default function KalkulatorPupuk() {
                             <option value="padi">Padi</option>
                             <option value="bawang">Bawang Merah</option>
                             <option value="jagung">Jagung</option>
-                            {/* --- PENAMBAHAN OPSI KEDELAI --- */}
                             <option value="kedelai">Kedelai</option>
+                            <option value="melon">Melon</option>
+                            <option value="semangka">Semangka</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-black">2. Masukkan Luas Lahan</label>
+                        <label className="block text-sm font-medium text-black">2. Masukkan Luas Lhan</label>
                         <div className="flex mt-1">
-                            <input 
+                            <input
                                 type="number"
                                 value={luas}
                                 onChange={(e) => setLuas(parseFloat(e.target.value))}
@@ -96,20 +116,14 @@ export default function KalkulatorPupuk() {
                 <div className="bg-primary-50 p-4 rounded-lg text-black">
                     <h3 className="font-bold text-lg mb-2">Rekomendasi Kebutuhan Pupuk:</h3>
                     <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                            <span>Urea:</span>
-                            <span className="font-bold">{hasil.urea} kg</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span>SP-36:</span>
-                            <span className="font-bold">{hasil.sp36} kg</span>
-                        </div>
-                         <div className="flex justify-between">
-                            <span>KCL:</span>
-                            <span className="font-bold">{hasil.kcl} kg</span>
-                        </div>
+                        {Object.entries(hasil).map(([pupuk, jumlah]) => (
+                            <div key={pupuk} className="flex justify-between">
+                                <span>{pupuk.charAt(0).toUpperCase() + pupuk.slice(1)}:</span>
+                                <span className="font-bold">{jumlah} kg</span>
+                            </div>
+                        ))}
                     </div>
-                     <p className="text-xs mt-4">*Dosis ini adalah rekomendasi umum untuk pemupukan berimbang. Sesuaikan dengan kondisi spesifik lahan Anda.</p>
+                     <p className="text-xs mt-4">*Dosis ini adalah rekomendasi umum yang telah disesuaikan. Tetap perhatikan kondisi spesifik lahan dan tanaman Anda.</p>
                 </div>
             </div>
         </div>
